@@ -1,3 +1,13 @@
+.Nav {
+    background-color: #FFFAEF;
+    padding: 0%;
+}
+
 .navbar {
-    background-color: #FFFAEF;;
+  justify-content: flex-end;
+  margin-top: 2%;
+}
+
+.navbar .container-fluid {
+  justify-content: flex-end;
 }

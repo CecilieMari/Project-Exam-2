@@ -1,39 +1,39 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Styles from './Nav.module.css';
 
 function Nav() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">Navbar</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
+    <nav className={`navbar navbar-expand-lg bg-body-tertiary ${Styles.Nav}`}>
+      <div className={`container-fluid ${Styles.Nav}`}>
+        <button
+          className={`navbar-toggler ${Styles.Nav}`}
+          type="button"
+          aria-controls="navbarTogglerDemo03"
+          aria-expanded={open}
+          aria-label="Toggle navigation"
+          onClick={() => setOpen(!open)}
+        >
+          <span className={`navbar-toggler-icon ${Styles.Nav}`}></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+        <Link className={`navbar-brand ${Styles.Nav}`} to="/">Navbar</Link>
+        <div className={`collapse navbar-collapse${open ? ' show' : ''} ${Styles.Nav}`} id="navbarTogglerDemo03">
+          <ul className={`navbar-nav me-auto mb-2 mb-lg-0 ${Styles.Nav}`}>
+            <li className={`nav-item ${Styles.Nav}`}>
+              <Link className={`nav-link active ${Styles.Nav}`} aria-current="page" to="/">Home</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/link">Link</Link>
+            <li className={`nav-item ${Styles.Nav}`}>
+              <Link className={`nav-link ${Styles.Nav}`} to="/link">Link</Link>
             </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li><Link className="dropdown-item" to="/action">Action</Link></li>
-                <li><Link className="dropdown-item" to="/another-action">Another action</Link></li>
-                <li><hr className="dropdown-divider" /></li>
-                <li><Link className="dropdown-item" to="/something-else">Something else here</Link></li>
-              </ul>
-            </li>
-            <li className="nav-item">
-              <span className="nav-link disabled" aria-disabled="true">Disabled</span>
+            <li className={`nav-item ${Styles.Nav}`}>
+              <span className={`nav-link disabled ${Styles.Nav}`} aria-disabled="true">Disabled</span>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button className="btn btn-outline-success" type="submit">Search</button>
+          <form className={`d-flex ${Styles.Nav}`} role="search">
+            <input className={`form-control me-2 ${Styles.Nav}`} type="search" placeholder="Search" aria-label="Search"/>
+            <button className={`btn btn-outline-success ${Styles.Nav}`} type="submit">Search</button>
           </form>
         </div>
       </div>
