@@ -1,0 +1,21 @@
+.headerContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.logoContainer {
+  flex: 0 0 auto;
+  margin-top: 1rem;
+}
+
+.logo {
+  width: 60%;
+  height: auto;
+}
+
+.navContainer {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: flex-end;
+}

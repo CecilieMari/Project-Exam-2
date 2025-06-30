@@ -1,11 +1,22 @@
 import Styles from './Layout.module.css';
 import Nav from '../nav/Nav';
+import logo from '../../img/logo-holidaze.png'; // Importer logoen
+import { Link } from 'react-router-dom'; // Importer Link
 
 function Layout({ children }) {
     return (
         <div className={Styles.layout}>
             <header className={Styles.header}>
-            <Nav />
+                <div className={Styles.headerContent}>
+                    <div className={Styles.logoContainer}>
+                        <Link to="/">
+                            <img src={logo} alt="Logo" className={Styles.logo} />
+                        </Link>
+                    </div>
+                    <div className={Styles.navContainer}>
+                        <Nav />
+                    </div>
+                </div>
             </header>
             <main className={Styles.main}>{children}</main>
             <footer className={Styles.footer}>

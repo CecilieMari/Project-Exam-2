@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Styles from './Nav.module.css';
 
+
 function Nav() {
   const [open, setOpen] = useState(false);
 
@@ -18,7 +19,6 @@ function Nav() {
         >
           <span className={`navbar-toggler-icon ${Styles.Nav}`}></span>
         </button>
-        <Link className={`navbar-brand ${Styles.Nav}`} to="/">Navbar</Link>
         <div className={`collapse navbar-collapse${open ? ' show' : ''} ${Styles.Nav}`} id="navbarTogglerDemo03">
           <ul className={`navbar-nav me-auto mb-2 mb-lg-0 ${Styles.Nav}`}>
             <li className={`nav-item ${Styles.Nav}`}>
