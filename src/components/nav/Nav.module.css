@@ -1,6 +1,6 @@
 .Nav {
     background-color: #FFFAEF;
-    padding: 0%;
+    padding: 0;
 }
 
 .navbar {
@@ -10,4 +10,8 @@
 
 .navbar .container-fluid {
   justify-content: flex-end;
+}
+
+.orderRadius {
+  border-radius: 50px;
 }
