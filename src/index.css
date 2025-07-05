@@ -7,13 +7,22 @@ body {
 
 html, body #root {
   height: 100%;
-  background-color: #FFFAEF;;
+  background-color: #FFFAEF;
   margin: 0;
   padding: 0;
 }
 
+@media (min-width: 992px) {
+  .container-fluid {
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+

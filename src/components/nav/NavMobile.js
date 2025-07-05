@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Styles from './NavMobile.module.css'; 
+import NavStyles from './Nav.module.css';
 import NavToggle from './NavToggel';
 
 
@@ -28,7 +29,7 @@ function NavMobile() {
           </ul>
           <form className={`d-flex ${Styles.Nav}`} role="search">
             <input className={`form-control me-2 ${Styles.Nav}`} type="search" placeholder="Search" aria-label="Search"/>
-            <button className={`btn btn-outline-success ${Styles.Nav}`} type="submit">Search</button>
+            <button className={`btn btn-outline-success  ${NavStyles.srcButton}`} type="submit">Search</button>
           </form>
         </div>
       </div>

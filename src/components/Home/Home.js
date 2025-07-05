@@ -3,7 +3,7 @@ import Styles from './home.module.css';
 
 function Home() {
     return (
-             <div className={Styles.home}>
+        <div className={`container-fluid ${Styles.home}`} >
         <h1>Welcome to Holidaze</h1>
         <p>Your one-stop destination for all things holiday!</p>
         <p>Explore our wide range of holiday packages, book your dream vacation, and make unforgettable memories.</p>
