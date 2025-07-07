@@ -3,20 +3,18 @@ import Styles from './home.module.css';
 
 function Home() {
     return (
-        <div className={`container-fluid ${Styles.home}`} >
-        <h1>Welcome to Holidaze</h1>
-        <p>Your one-stop destination for all things holiday!</p>
-        <p>Explore our wide range of holiday packages, book your dream vacation, and make unforgettable memories.</p>
-
-        <p>Whether you're looking for a relaxing beach getaway, an adventurous mountain retreat, or a cultural city tour, we have something for everyone.</p>
-        <p>Check out our latest offers and start planning your next holiday today!</p>
-        <p>Happy travels!</p>
-        <p>Contact us for more information or to book your holiday.</p>
-        <p>Follow us on social media for the latest updates and travel inspiration.</p>
-        <p>Thank you for choosing Holidaze!</p>
-        <p>We look forward to helping you create unforgettable holiday experiences.</p>
-        <p>Visit our website for more details and to start your journey with us.</p>
-        <p>Happy holidays from the Holidaze team!</p>
+        <div className={`container-fluid ${Styles.home}`}>
+            <div className={`main-heading ${Styles.mainHeading}`}>
+                <h1 className={Styles.title}>Your next getaway starts here</h1>
+                </div>
+                  <form className={`d-flex ${Styles.searchForm}`} role="search">
+                    <div className={Styles.searchRow}>
+                    <input className={`form-control me-2 ${Styles.srcHotel} `} type="search" placeholder="Where" aria-label="Search" />
+                    <input className={`form-control me-2 ${Styles.srcHotel} `} type="date" placeholder="Check in and out" aria-label="Check in and out" />
+                    <input className={`form-control me-2 ${Styles.srcHotel} `} type="number" placeholder="Travellers" aria-label="Travellers" />
+                    </div>
+<button className={`btn btn-outline-success ${Styles.srcButton}`} type="submit">Search</button>
+</form>
         </div>
     );
 }
