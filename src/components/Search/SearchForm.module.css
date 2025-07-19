@@ -1,0 +1,37 @@
+.searchForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: column; 
+}
+
+.searchRow {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;  
+}
+
+.srcHotel {
+    width: 150px;
+    margin-right: 10px;
+    border-radius: 50px;
+}
+
+
+
+.srcButton {
+    border-radius: 50px;
+    background-color: #FE3301;
+    color: white;
+    border: none;
+    margin-top: 20px;
+    padding: 5px 30px;
+    font-size: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.srcButton:hover {
+    background-color: #F4E6D7;
+}
