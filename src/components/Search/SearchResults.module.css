@@ -1,0 +1,111 @@
+.venuesSection {
+    margin-top: 40px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.error {
+    text-align: center;
+    color: red;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.noResults {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.resetSearch {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.resetButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.resetButton:hover {
+    background-color: #0056b3;
+}
+
+.venuesContainer {
+    padding: 20px;
+}
+
+.venuesTitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.venuesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.venueCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.venueCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.venueImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.venueName {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.venueDescription {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.venuePrice {
+    font-weight: bold;
+    color: #FE3301;
+    margin-bottom: 5px;
+}
+
+.venueGuests {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.venueLocation {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
