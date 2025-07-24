@@ -4,6 +4,7 @@ import SearchForm from '../Search/SearchForm';
 import SearchResults from '../Search/SearchResults';
 import { filterVenues } from '../Search/filterVenues';
 import Styles from './home.module.css';
+import fakeAd from '../../img/index-ad-page.jpg';
 
     const FEATURED_VENUE_IDS = ['7d74e8bc-ef55-4d26-803f-753c59e8b710', '561e92d1-48d1-4a43-a674-0f93b5e21bd1', '286904cb-ab00-4252-a770-7a6d9dc82e69'];
 
@@ -99,6 +100,15 @@ function Home() {
                         ))}
                     </div>
                 )}
+                <div className={Styles.fakeAdvertisement}>
+                    <img 
+                        src={fakeAd}
+                        alt="Advertisement"
+                        className={Styles.adImage}
+                    />
+                    <div className={Styles.adText}>Your Escape Starts Here </div>
+                    <button className={Styles.adButton}>Book Now</button>
+                </div>
             </div>
         </div>
     );
