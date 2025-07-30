@@ -2,6 +2,7 @@ import Styles from './Layout.module.css';
 import Nav from '../nav/Nav';
 import logo from '../../img/logo-holidaze.png';
 import { Link } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
 function Layout({children}) {
     return (
@@ -19,9 +20,7 @@ function Layout({children}) {
                 </div>
             </header>
             <main className={Styles.main}>{children}</main>
-            <footer className={Styles.footer}>
-                <p>&copy; 2023 Holidaze. All rights reserved.</p>
-            </footer>
+            <Footer />
         </div>
     );
 }
