@@ -1,0 +1,60 @@
+.logoContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+
+
+
+.rights {
+    background-color: #F4E6D7;
+    line-height: 65px;
+    text-align: center;
+}
+
+
+
+.footerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.footerLinks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 300px;
+}
+
+.footerLink {
+    text-decoration: none;
+    color: #000;
+}
+
+.socialMedia {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 10px;
+}
+
+.socialIcon {
+    height: 40px;
+    width: 40px;
+}
+
+.miniLogo {
+    height: auto;
+    width: 90px;
+}
