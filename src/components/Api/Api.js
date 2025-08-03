@@ -1,4 +1,4 @@
-const BASE_URL = 'https://v2.api.noroff.dev/holidaze';
+const BASE_URL = 'https://v2.api.noroff.dev';
 
 // Basic API
 async function apiCall(endpoint, options = {}) {
@@ -12,7 +12,19 @@ async function apiCall(endpoint, options = {}) {
     });
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+     
+      let errorMessage = `HTTP error! status: ${response.status}`;
+      try {
+        const errorData = await response.json();
+        if (errorData.errors && errorData.errors.length > 0) {
+          errorMessage = errorData.errors.map(err => err.message).join(', ');
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } catch (e) {
+      
+      }
+      throw new Error(errorMessage);
     }
     
     const data = await response.json();
@@ -23,27 +35,22 @@ async function apiCall(endpoint, options = {}) {
   }
 }
 
+
+// Auth API
+export const authAPI = {
+  register: (userData) => apiCall('/auth/register', {  
+    method: 'POST',
+    body: JSON.stringify(userData),
+  }),
+  login: (credentials) => apiCall('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+  }),
+};
+
 // Venues API
 export const venuesAPI = {
-  getAll: () => apiCall('/venues'),
-  getById: (id) => apiCall(`/venues/${id}`),
-  search: (query) => apiCall(`/venues/search?q=${query}`),
-};
-
-// Bookings API
-export const bookingsAPI = {
-  getAll: () => apiCall('/bookings'),
-  create: (bookingData) => apiCall('/bookings', {
-    method: 'POST',
-    body: JSON.stringify(bookingData),
-  }),
-};
-
-// Profiles API
-export const profilesAPI = {
-  getProfile: (name) => apiCall(`/profiles/${name}`),
-  updateProfile: (name, profileData) => apiCall(`/profiles/${name}`, {
-    method: 'PUT',
-    body: JSON.stringify(profileData),
-  }),
-};
+  getAll: () => apiCall('/holidaze/venues'),
+  getById: (id) => apiCall(`/holidaze/venues/${id}`),
+  search: (query) => apiCall(`/holidaze/venues/search?q=${query}`),
+};  

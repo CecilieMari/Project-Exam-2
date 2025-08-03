@@ -1,0 +1,25 @@
+.formContainer{
+    font-weight: 300;
+}
+.card {
+    border-radius: 20px;
+    text-align: center;
+}
+
+.form-input{
+    border-radius: 50px;
+    background-color: #FFFAEF;
+}
+
+.signInButton {
+  background-color: #FE3301;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.signInButton:hover {
+  background-color: #ae2503; 
+  transform: translateY(-1px); 
+}
+
