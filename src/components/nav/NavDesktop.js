@@ -10,10 +10,10 @@ function NavDesktop() {
             <Link className={`nav-link active ${Styles.Nav}`} aria-current="page" to="/">Destinasjon</Link>
           </li>
           <li className={`nav-item ${Styles.Nav}`}>
-            <Link className={`nav-link ${Styles.Nav}`} to="/link">Registrer</Link>
+            <Link className={`nav-link ${Styles.Nav}`} to="/register">Registrer</Link>
           </li>
           <li className={`nav-item ${Styles.Nav}`}>
-            <span className={`nav-link disabled ${Styles.Nav}`} aria-disabled="true">Log in</span>
+            <Link className={`nav-link  ${Styles.Nav}`} to="/login">Log in</Link>
           </li>
         </ul>
         <form className={`d-flex ${Styles.Nav}`} role="search">
