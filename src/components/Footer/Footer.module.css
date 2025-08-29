@@ -85,7 +85,7 @@
 
     .socialIcons {
         justify-content: center;
-        gap: 20px;
+        gap: 50px;
         margin-top: 10px;
     }
 
@@ -99,3 +99,6 @@
         margin-left: 0;
     }
 }
+
+
+

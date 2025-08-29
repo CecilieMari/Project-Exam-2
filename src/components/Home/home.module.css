@@ -153,8 +153,14 @@
     margin-bottom: 10%;
 }
 
-/* kjekk denne  */
+/* Stor mobil/tablet */
 @media (max-width: 768px) {
+    .title {
+        font-size: 40px;
+        width: 90%;
+        max-width: 350px;
+    }
+    
     .adText {
         font-size: 50px;
         width: 40%;
@@ -162,8 +168,14 @@
     }
 }
 
-/* Mobil kjekk denne */
+/* Mobil */
 @media (max-width: 480px) {
+    .title {
+        font-size: 28px;
+        width: 95%;
+        max-width: 280px;
+    }
+    
     .adText {
         font-size: 30px;
         width: 60%;
@@ -171,8 +183,14 @@
     }
 }
 
-/* Ekstra små kjekk denne */
+/* Ekstra små skjermer */
 @media (max-width: 320px) {
+    .title {
+        font-size: 24px;
+        width: 95%;
+        max-width: 250px;
+    }
+    
     .adText {
         font-size: 24px;
         width: 70%;
