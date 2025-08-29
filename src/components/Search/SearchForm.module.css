@@ -17,6 +17,7 @@
     width: 150px;
     margin-right: 10px;
     border-radius: 50px;
+    background-color: #F4E6D7;
 }
 
 
@@ -34,4 +35,27 @@
 
 .srcButton:hover {
     background-color: #F4E6D7;
+}
+
+/* Mobile view - Media queries */
+@media (max-width: 768px) {
+    .searchRow {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .srcHotel {
+        width: 100%;
+        max-width: 740px;
+        margin-right: 0;
+        padding: 12px 15px;
+    }
+
+    .srcButton {
+        width: 100%;
+        max-width: 740px;
+        padding: 6px 30px;
+        margin-top: 20px;
+    }
 }
