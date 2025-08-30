@@ -7,6 +7,9 @@ import Layout from './components/Layout/Layout';
 import './index.css';
 import RegisterGuest from './components/Aut/RegisterGuest';
 import LogIn from './components/Aut/LogIn';
+import SingelResult from './components/singelResult/SingelResult';
+
+
 
 function App() {
   return (
@@ -16,6 +19,7 @@ function App() {
          <Route path="/" element={<Home />} />
          <Route path="/register" element={<RegisterGuest />} />
          <Route path="/login" element={<LogIn />} />
+         <Route path="/venue/:id" element={<SingelResult />} />
         </Routes>
        </Layout>
     </Router>

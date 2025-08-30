@@ -1,0 +1,107 @@
+.bookingCalendar {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+}
+
+.bookingCalendar h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.calendar {
+    width: 100%;
+    border: none;
+    font-family: inherit;
+}
+
+.calendar .react-calendar__tile {
+    position: relative;
+    padding: 8px 6px;
+    background: none;
+    border: none;
+    font-size: 14px;
+}
+
+.calendar .react-calendar__tile:hover {
+    background-color: #e6f3ff;
+}
+
+.bookedDate {
+    background-color: #ffcccb !important;
+    color: #d32f2f;
+    cursor: not-allowed;
+}
+
+.bookedDate:hover {
+    background-color: #ffcccb !important;
+}
+
+.selectedRange {
+    background-color: #F9D2A9;
+    color: white;
+}
+
+.selectionSummary {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+}
+
+.selectionSummary p {
+    margin: 5px 0;
+    font-weight: 500;
+}
+
+.legend {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.availableColor,
+.bookedColor,
+.selectedColor {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+}
+
+.availableColor {
+    background-color: #e6f3ff;
+    border: 1px solid #2196f3;
+}
+
+.bookedColor {
+    background-color: #ffcccb;
+}
+
+.selectedColor {
+    background-color: #4caf50;
+}
+
+@media (max-width: 768px) {
+    .bookingCalendar {
+        padding: 15px;
+    }
+    
+    .calendar {
+        font-size: 12px;
+    }
+    
+    .legend {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
