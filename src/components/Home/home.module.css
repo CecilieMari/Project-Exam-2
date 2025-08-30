@@ -110,7 +110,6 @@
     font-weight: normal;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 1;
-    width: 30%;
 }
 
 
@@ -166,10 +165,53 @@
         width: 40%;
         left: 30%;
     }
+
+    .featuredGrid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 15px;
+        padding: 0 20px;
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+    }
+    
+    .featuredGrid::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .featuredCard {
+        flex: 0 0 280px; 
+        scroll-snap-align: start;
+        margin: 0;
+    }
+    
+    .featuredSection {
+        width: 100%;
+        margin: 20px 0;
+    }
+    
+    .featuredTitle {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+        padding: 0 20px;
+    }
 }
 
 /* Mobil */
 @media (max-width: 480px) {
+    .featuredCard {
+        flex: 0 0 250px; 
+    }
+    
+    .featuredTitle {
+        font-size: 24px;
+    }
+    
+    .featuredGrid {
+        padding: 0 15px;
+    }
     .title {
         font-size: 28px;
         width: 95%;
