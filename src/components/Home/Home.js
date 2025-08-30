@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { venuesAPI } from '../Api/Api';
 import SearchForm from '../Search/SearchForm';
 import SearchResults from '../Search/SearchResults';
@@ -6,8 +7,7 @@ import { filterVenues } from '../Search/filterVenues';
 import Styles from './home.module.css';
 import fakeAd from '../../img/index-ad-page.jpg';
 
-
-    const FEATURED_VENUE_IDS = ['7d74e8bc-ef55-4d26-803f-753c59e8b710', '561e92d1-48d1-4a43-a674-0f93b5e21bd1', '286904cb-ab00-4252-a770-7a6d9dc82e69'];
+const FEATURED_VENUE_IDS = ['7d74e8bc-ef55-4d26-803f-753c59e8b710', '561e92d1-48d1-4a43-a674-0f93b5e21bd1', '286904cb-ab00-4252-a770-7a6d9dc82e69'];
 
 function Home() {
     const [venues, setVenues] = useState([]);
@@ -17,33 +17,33 @@ function Home() {
     const [error, setError] = useState(null);
     const [searchCriteria, setSearchCriteria] = useState(null);
     const [hasSearched, setHasSearched] = useState(false);
+    
 
+    useEffect(() => {
+        const fetchVenues = async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const response = await venuesAPI.getAll();
+                console.log('API Response:', response);
+                const venuesData = response.data || [];
+                setAllVenues(venuesData);
 
-  useEffect(() => {
-    const fetchVenues = async () => {
-        try {
-            setIsLoading(true);
-            setError(null);
-            const response = await venuesAPI.getAll(); // Riktig metodenavn
-            console.log('API Response:', response);
-            const venuesData = response.data || [];
-            setAllVenues(venuesData);
+                const featured = venuesData.filter(venue => 
+                    FEATURED_VENUE_IDS.includes(venue.id)
+                );
+                setFeaturedVenues(featured);    
+                
+            } catch (err) {
+                setError(err.message);
+                console.error('Error fetching venues:', err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-            const featured = venuesData.filter(venue => 
-                FEATURED_VENUE_IDS.includes(venue.id)
-            );
-            setFeaturedVenues(featured);    
-            
-        } catch (err) {
-            setError(err.message);
-            console.error('Error fetching venues:', err);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    fetchVenues();
-}, []);
+        fetchVenues();
+    }, []);
 
     const handleSearch = (criteria) => {
         setSearchCriteria(criteria);
@@ -62,7 +62,6 @@ function Home() {
 
             <SearchForm onSearch={handleSearch} />
 
-            
             {hasSearched && (
                 <SearchResults 
                     venues={venues}
@@ -89,14 +88,32 @@ function Home() {
                                     />
                                 )}
                                 
-                                {venue.location && (
-                                    <p className={Styles.venueLocation}>
-                                        📍 {venue.location.city}, {venue.location.country}
-                                    </p>
-                                )}
-                               
-                                <p className={Styles.venuePrice}>From: ${venue.price}</p>
-                                
+                                <div className={Styles.cardContent}>
+                                    <h3 className={Styles.venueName}>{venue.name}</h3>
+                                    
+                                    {venue.location && (
+                                        <p className={Styles.venueLocation}>
+                                            📍 {venue.location.city}, {venue.location.country}
+                                        </p>
+                                    )}
+                                   
+                                    <p className={Styles.venuePrice}>From: ${venue.price}/night</p>
+                                    
+                                    <div className={Styles.cardActions}>
+                                        <Link 
+                                            to={`/venue/${venue.id}`} 
+                                            className={Styles.viewButton}
+                                        >
+                                            View Details
+                                        </Link>
+                                        <Link 
+                                            to={`/booking/${venue.id}`} 
+                                            className={Styles.bookButton}
+                                        >
+                                            Book Now
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -111,32 +128,32 @@ function Home() {
                     <button className={Styles.adButton}>Book Now</button>
                 </div>
             </div>
-             <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
+            
+            <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item active" data-bs-interval="10000">
-                         <div className={Styles.carouselTextSlide}>
-                <div>🌟🌟🌟🌟🌟</div>
-                <p>Very user-friendly site. Found exactly what I needed in minutes. 
-                    The booking confirmation came right away. Great job, Holidaze!</p>
-                    <p>– Lina M., Stockholm, Sweden</p>
-            </div>
+                        <div className={Styles.carouselTextSlide}>
+                            <div>🌟🌟🌟🌟🌟</div>
+                            <p>Very user-friendly site. Found exactly what I needed in minutes. 
+                                The booking confirmation came right away. Great job, Holidaze!</p>
+                            <p>– Lina M., Stockholm, Sweden</p>
+                        </div>
                     </div>
                     <div className="carousel-item" data-bs-interval="2000">
                         <div className={Styles.carouselTextSlide}>
-                <div>🌟🌟🌟🌟🌟</div>
-                <p>Holidaze made planning our vacation so simple! The site is clean, fast, 
-                    and easy to navigate. We’ll definitely book through here again!</p>
-                    <p>— Michael T., UK</p>
-                    
-            </div>
+                            <div>🌟🌟🌟🌟🌟</div>
+                            <p>Holidaze made planning our vacation so simple! The site is clean, fast, 
+                                and easy to navigate. We'll definitely book through here again!</p>
+                            <p>— Michael T., UK</p>
+                        </div>
                     </div>
                     <div className="carousel-item">
-                         <div className={Styles.carouselTextSlide}>
-                <div>🌟🌟🌟🌟🌟</div>
-                <p>I’ve used Holidaze for three trips now and it never disappoints. The interface is clean and booking is 
-                    super easy. Highly recommend!</p>
-                    <p>– Sara J., Copenhagen, Denmark</p>
-            </div>
+                        <div className={Styles.carouselTextSlide}>
+                            <div>🌟🌟🌟🌟🌟</div>
+                            <p>I've used Holidaze for three trips now and it never disappoints. The interface is clean and booking is 
+                                super easy. Highly recommend!</p>
+                            <p>– Sara J., Copenhagen, Denmark</p>
+                        </div>
                     </div>
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">

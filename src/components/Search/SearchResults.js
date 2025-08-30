@@ -180,7 +180,7 @@ function SearchResults({
                                     View Details
                                 </Link>
                                 <Link 
-                                    to={`/booking/${venue.id}`} 
+                                    to={`/venue/${venue.id}`} 
                                     className={Styles.bookButton}
                                 >
                                     Book Now
