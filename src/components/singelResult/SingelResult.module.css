@@ -91,6 +91,11 @@
     font-size: 16px;
 }
 
+.guestBadge {
+    background-color: #FE3301;
+    color: white;
+}
+
 /* Calendar styling */
 .calendarTitle {
     font-size: 18px;
@@ -103,11 +108,11 @@
 
 .calendar {
     width: 100%;
-    max-width: 250px; /* Maksimal bredde på kalender */
+    max-width: 315px; /* Maksimal bredde på kalender */
     border: none;
     font-family: inherit;
     background: transparent !important;
-    font-size: 12px;
+    font-size: 15px;
     margin: 0 auto; /* Sentrer kalenderen */
 }
 
@@ -159,8 +164,23 @@
 }
 
 .calendar .react-calendar__tile--now {
-    background-color: #ffc107 !important;
-    color: #000 !important;
+    background-color: #FE3301 !important;
+    color: white !important;
+    border-radius: 50% !important;
+}
+
+/* Dagens dato - hover tilstand (dette var problemet!) */
+.calendar .react-calendar__tile--now:enabled:hover {
+    background-color: #e02d00 !important; /* Mørkere orange på hover */
+    color: white !important;
+    border-radius: 50% !important;
+}
+
+.calendar .react-calendar__tile--now:enabled,
+.calendar .react-calendar__tile--now:hover,
+.calendar .react-calendar__tile--now:focus {
+    background-color: #FE3301 !important;
+    color: white !important;
     border-radius: 50% !important;
 }
 
@@ -252,6 +272,10 @@
     max-width: 250px;
     margin: 0 auto;
     justify-content: center !important;
+}
+
+.customBackground {
+    background-color: #F4E6D7;
 }
 
 /* Mobile responsiv */
