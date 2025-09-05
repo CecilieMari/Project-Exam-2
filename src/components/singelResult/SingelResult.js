@@ -226,7 +226,18 @@ function SingleResult() {
                 {/* Calendar - gjort smalere */}
                 <div className="col-lg-4 col-md-12">
                     <div className={`${Style.calendarSection} card h-100`}>
-                        <div className="card-body">
+                        <div className={`card-body ${Style.customBackground}`}>
+                            {/* Pris flyttes hit - over kalenderen */}
+                                <div className={`d-flex justify-content-between align-items-center mb-3 p-3  rounded`}>
+                                <div>
+                                    <span className="h4 text-primary">${venue.price}</span>
+                                    <span className="text-muted"> per night</span>
+                                </div>
+                                <div>
+                                    <span className={`badge ${Style.guestBadge}`}> Max {venue.maxGuests} guests</span>
+                                </div>
+                            </div>
+
                             <h3 className={Style.calendarTitle}>Available dates</h3>
                             
                             <Calendar
@@ -240,7 +251,7 @@ function SingleResult() {
                             />
                             
                             {selectedDates[0] && selectedDates[1] && (
-                                <div className={`${Style.selectionSummary} mt-3 p-3 bg-light rounded`}>
+                                <div className={`${Style.selectionSummary} mt-3 p-3 rounded`}>
                                     <p className="mb-1"><strong>Check-in:</strong> {selectedDates[0].toLocaleDateString()}</p>
                                     <p className="mb-1"><strong>Check-out:</strong> {selectedDates[1].toLocaleDateString()}</p>
                                     <p className="mb-1"><strong>Nights:</strong> {calculateNights()}</p>
@@ -274,15 +285,7 @@ function SingleResult() {
                     {/* Venue Info */}
                     <div className="card mb-4">
                         <div className="card-body">
-                            <div className="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <span className="h4 text-primary">${venue.price}</span>
-                                    <span className="text-muted"> per night</span>
-                                </div>
-                                <div>
-                                    <span className="badge bg-secondary">👥 Max {venue.maxGuests} guests</span>
-                                </div>
-                            </div>
+                            {/* Fjernet prisseksjonen herfra siden den nå er over kalenderen */}
 
                             {/* Location */}
                             {venue.location && (venue.location.city || venue.location.country) && (
@@ -302,8 +305,8 @@ function SingleResult() {
                                 </div>
                             )}
 
-                            {/* Amenities */}
-                            {venue.meta && (
+                             {/* Amenities - Kun vis tilgjengelige tjenester */}
+                            {venue.meta && Object.values(venue.meta).some(value => value === true) && (
                                 <div className="mb-4">
                                     <h5>What this place offers</h5>
                                     <div className="row">
@@ -331,6 +334,14 @@ function SingleResult() {
                                 </div>
                             )}
 
+                            {/* Hvis ingen tjenester er tilgjengelige */}
+                            {venue.meta && !Object.values(venue.meta).some(value => value === true) && (
+                                <div className="mb-4">
+                                    <h5>What this place offers</h5>
+                                    <p className="text-muted">No additional amenities are available at this property.</p>
+                                </div>
+                            )}
+
                             {/* Owner info */}
                             {venue.owner && (
                                 <div>
@@ -352,8 +363,7 @@ function SingleResult() {
                                 <span className="h4 text-primary">${venue.price}</span>
                                 <span className="text-muted">per night</span>
                             </div>
-                            
-                            {selectedDates[0] && selectedDates[1] && (
+                             {selectedDates[0] && selectedDates[1] && (
                                 <div className="bg-light p-3 rounded mb-3">
                                     <p className="mb-1 small"><strong>Check-in:</strong> {selectedDates[0].toLocaleDateString()}</p>
                                     <p className="mb-1 small"><strong>Check-out:</strong> {selectedDates[1].toLocaleDateString()}</p>
