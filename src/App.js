@@ -9,11 +9,11 @@ import RegisterGuest from './components/Aut/RegisterGuest';
 import LogIn from './components/Aut/LogIn';
 import SingelResult from './components/singelResult/SingelResult';
 import MyBookingPage from './components/MyBookingPage/MyBookingPage';
-
-
+import { AuthProvider } from './components/Aut/AuthContext';
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
        <Layout> 
         <Routes>
@@ -22,9 +22,11 @@ function App() {
          <Route path="/login" element={<LogIn />} />
          <Route path="/venue/:id" element={<SingelResult />} />
          <Route path="/my-bookings" element={<MyBookingPage />} />
+         <Route path="/register" element={<RegisterGuest />} />
         </Routes>
        </Layout>
     </Router>
+    </AuthProvider>
   );
 }
 

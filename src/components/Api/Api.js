@@ -1,6 +1,5 @@
 const BASE_URL = 'https://v2.api.noroff.dev';
 
-
 async function apiCall(endpoint, options = {}) {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -21,7 +20,7 @@ async function apiCall(endpoint, options = {}) {
           errorMessage = errorData.message;
         }
       } catch (e) {
-       
+        
       }
       throw new Error(errorMessage);
     }
@@ -34,13 +33,14 @@ async function apiCall(endpoint, options = {}) {
   }
 }
 
-
+// Auth API
 export const authAPI = {
   register: (userData) => apiCall('/auth/register', {  
     method: 'POST',
     body: JSON.stringify(userData),
   }),
   
+ 
   login: async (credentials) => {
     try {
       console.log('API: Starting login request');
@@ -51,18 +51,13 @@ export const authAPI = {
       
       console.log('API: Login response received:', response);
       
-      
       if (response && response.data) {
         console.log('API: Saving to localStorage...');
         console.log('Token:', response.data.accessToken);
         console.log('User data:', response.data);
         
-        
         localStorage.setItem('accessToken', response.data.accessToken);
-        
-        
         localStorage.setItem('user', JSON.stringify(response.data));
-        
         
         const savedToken = localStorage.getItem('accessToken');
         const savedUser = localStorage.getItem('user');
@@ -83,11 +78,76 @@ export const authAPI = {
       throw error;
     }
   },
-};
 
+  
+  getProfile: (accessToken) => apiCall('/auth/profile', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  }),
+};
 
 export const venuesAPI = {
   getAll: () => apiCall('/holidaze/venues'),
   getById: (id) => apiCall(`/holidaze/venues/${id}`),
   search: (query) => apiCall(`/holidaze/venues/search?q=${query}`),
+  
+  
+  create: (venueData, accessToken) => apiCall('/holidaze/venues', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(venueData),
+  }),
+  update: (id, venueData, accessToken) => apiCall(`/holidaze/venues/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(venueData),
+  }),
+  delete: (id, accessToken) => apiCall(`/holidaze/venues/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  }),
+};
+
+
+export const bookingsAPI = {
+  getMyBookings: (accessToken) => apiCall('/holidaze/bookings', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  }),
+  create: (bookingData, accessToken) => apiCall('/holidaze/bookings', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(bookingData),
+  }),
+  getById: (id, accessToken) => apiCall(`/holidaze/bookings/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  }),
+  update: (id, bookingData, accessToken) => apiCall(`/holidaze/bookings/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(bookingData),
+  }),
+  delete: (id, accessToken) => apiCall(`/holidaze/bookings/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  }),
 };
