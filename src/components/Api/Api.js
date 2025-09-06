@@ -1,6 +1,5 @@
 const BASE_URL = 'https://v2.api.noroff.dev';
 
-// Basic API
 async function apiCall(endpoint, options = {}) {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -12,7 +11,6 @@ async function apiCall(endpoint, options = {}) {
     });
     
     if (!response.ok) {
-     
       let errorMessage = `HTTP error! status: ${response.status}`;
       try {
         const errorData = await response.json();
@@ -22,7 +20,7 @@ async function apiCall(endpoint, options = {}) {
           errorMessage = errorData.message;
         }
       } catch (e) {
-      
+        
       }
       throw new Error(errorMessage);
     }
@@ -41,11 +39,47 @@ export const authAPI = {
     method: 'POST',
     body: JSON.stringify(userData),
   }),
-  login: (credentials) => apiCall('/auth/login', {
-    method: 'POST',
-    body: JSON.stringify(credentials),
-  }),
-  // Legg til denne nye funksjonen
+  
+ 
+  login: async (credentials) => {
+    try {
+      console.log('API: Starting login request');
+      const response = await apiCall('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+      });
+      
+      console.log('API: Login response received:', response);
+      
+      if (response && response.data) {
+        console.log('API: Saving to localStorage...');
+        console.log('Token:', response.data.accessToken);
+        console.log('User data:', response.data);
+        
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('user', JSON.stringify(response.data));
+        
+        const savedToken = localStorage.getItem('accessToken');
+        const savedUser = localStorage.getItem('user');
+        console.log('API: Verification - Token saved:', !!savedToken);
+        console.log('API: Verification - User saved:', !!savedUser);
+        
+        if (!savedToken || !savedUser) {
+          throw new Error('Failed to save user data to localStorage');
+        }
+      } else {
+        console.error('API: No data in response:', response);
+        throw new Error('No user data received from server');
+      }
+      
+      return response;
+    } catch (error) {
+      console.error('API: Login failed:', error);
+      throw error;
+    }
+  },
+
+  
   getProfile: (accessToken) => apiCall('/auth/profile', {
     method: 'GET',
     headers: {
@@ -54,12 +88,12 @@ export const authAPI = {
   }),
 };
 
-// Venues API
 export const venuesAPI = {
   getAll: () => apiCall('/holidaze/venues'),
   getById: (id) => apiCall(`/holidaze/venues/${id}`),
   search: (query) => apiCall(`/holidaze/venues/search?q=${query}`),
-  // Legg til disse nye funksjonene for venue managers
+  
+  
   create: (venueData, accessToken) => apiCall('/holidaze/venues', {
     method: 'POST',
     headers: {
@@ -82,7 +116,7 @@ export const venuesAPI = {
   }),
 };
 
-// Bookings API - legg til denne helt nye seksjonen
+
 export const bookingsAPI = {
   getMyBookings: (accessToken) => apiCall('/holidaze/bookings', {
     method: 'GET',
@@ -117,4 +151,3 @@ export const bookingsAPI = {
     },
   }),
 };
-

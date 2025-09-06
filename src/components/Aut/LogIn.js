@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../../hooks/useAuth'; 
+import { authAPI } from "../Api/Api";
 import Styles from './LogIn.module.css';
 
 const Login = () => {
-  const { login, isLoading } = useAuth();
   const navigate = useNavigate();
-  
+  const { checkLoginStatus } = useAuth(); 
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,18 +17,51 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
-    const result = await login(formData);
+    try {
+      console.log('Attempting login with:', formData);
+      const response = await authAPI.login(formData);
+      console.log('Login successful:', response);
+      
     
-    if (result.success) {
-      // Redirect basert på brukerrolle
-      if (result.user.venueManager) {
-        navigate('/venue-manager-dashboard');
-      } else {
-        navigate('/'); // Tilbake til homepage for kunder
+      if (checkLoginStatus) {
+        checkLoginStatus();
       }
-    } else {
-      setError(result.error);
+      
+    
+      window.dispatchEvent(new Event('storage'));
+      
+      
+      setTimeout(() => {
+        const savedToken = localStorage.getItem('accessToken');
+        const savedUser = localStorage.getItem('user');
+        
+        if (savedToken && savedUser) {
+          console.log('Data confirmed in localStorage, redirecting...');
+          
+          
+          try {
+            const user = JSON.parse(savedUser);
+            if (user.venueManager) {
+              navigate('/venue-manager-dashboard');
+            } else {
+              navigate('/my-bookings'); 
+            }
+          } catch (e) {
+            navigate('/my-bookings'); 
+          }
+        } else {
+          console.error('Data missing from localStorage');
+          setError('Failed to save login data. Please try again.');
+        }
+      }, 100);
+      
+    } catch (error) {
+      console.error('Login failed:', error);
+      setError('Login failed. Please check your credentials and try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -35,7 +69,9 @@ const Login = () => {
     <div className="container-fluid d-flex justify-content-center align-items-center min-vh-100">
       <div className="card p-4" style={{maxWidth: '400px', width: '100%'}}>
         <div className="card-body">
-          <h2 className="card-title text-center mb-4 fw-light">Log in</h2>
+          <h2 className={`${Styles.cardTitle} text-center mb-4 fw-light`}>Sign in</h2>
+          {/* Fjern denne test linjen: */}
+          {/* <p>cemis@stud.noroff.no', password: '12345678900'</p> */}
 
           {error && (
             <div className="alert alert-danger" role="alert">
@@ -51,6 +87,7 @@ const Login = () => {
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
+                autoComplete="email"
                 required
               />
             </div>
@@ -62,6 +99,7 @@ const Login = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
+                autoComplete="current-password"
                 required
               />
             </div>
