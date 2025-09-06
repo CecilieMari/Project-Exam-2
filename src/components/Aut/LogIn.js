@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authAPI } from "../Api/Api";
 import Styles from './LogIn.module.css';
 
-
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -12,7 +12,6 @@ const Login = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,9 +19,27 @@ const Login = () => {
     setError('');
 
     try {
+      console.log('Attempting login with:', formData);
       const response = await authAPI.login(formData);
       console.log('Login successful:', response);
-      setSuccess(true);
+      
+  
+      window.dispatchEvent(new Event('storage'));
+      
+  
+      setTimeout(() => {
+        const savedToken = localStorage.getItem('accessToken');
+        const savedUser = localStorage.getItem('user');
+        
+        if (savedToken && savedUser) {
+          console.log('Data confirmed in localStorage, redirecting...');
+          navigate('/my-bookings');
+        } else {
+          console.error('Data missing from localStorage');
+          setError('Failed to save login data. Please try again.');
+        }
+      }, 100);
+      
     } catch (error) {
       console.error('Login failed:', error);
       setError('Login failed. Please check your credentials and try again.');
@@ -31,32 +48,12 @@ const Login = () => {
     }
   };
 
-  if (success) {
-    return (
-      <div className="container-fluid d-flex justify-content-center align-items-center min-vh-100">
-        <div className="card p-4 text-center" style={{maxWidth: '400px'}}>
-          <div className="card-body">
-            <div className="mb-3">
-              <i className="fas fa-check-circle text-success" style={{fontSize: '3rem'}}></i>
-            </div>
-            <h2 className="card-title text-success mb-3">Login Successful!</h2>
-            <p className="card-text mb-4">
-              Welcome back, <strong>{formData.email}</strong>! You are now logged in.
-            </p>
-            <Link to="/" className="btn btn-primary btn-lg">
-              Go to homepage
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={`${Styles.formContainer} container-fluid d-flex justify-content-center align-items-center min-vh-100`}>
       <div className={`card p-4 ${Styles.card}`} style={{maxWidth: '900px', width: '100%'}}>
         <div className="card-body">
-          <h2 className="card-title text-center mb-4 fw-light">Sign in</h2>
+          <h2 className={`${Styles.cardTitle} text-center mb-4 fw-light`}>Sign in</h2>
+          <p>cemis@stud.noroff.no', password: '12345678900'</p>
 
           {error && (
             <div className="alert alert-danger" role="alert">
@@ -72,6 +69,7 @@ const Login = () => {
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
+                autoComplete="email"
                 required
               />
             </div>
@@ -83,6 +81,7 @@ const Login = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
+                autoComplete="current-password"
                 required
               />
             </div>
@@ -108,4 +107,3 @@ const Login = () => {
 };
 
 export default Login;
-    
