@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Styles from './MyBookingPage.module.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Styles from "./MyBookingPage.module.css";
 
 const MyBookingPage = () => {
   const navigate = useNavigate();
@@ -8,96 +8,95 @@ const MyBookingPage = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [newAvatar, setNewAvatar] = useState('');
+  const [newAvatar, setNewAvatar] = useState("");
   const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
+  const [showAvatarForm, setShowAvatarForm] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
-    
     fetchUserData();
     fetchUserBookings();
   }, [navigate]);
 
   const fetchUserData = async () => {
     try {
-      const userData = JSON.parse(localStorage.getItem('user'));
+      const userData = JSON.parse(localStorage.getItem("user"));
       if (userData) {
         setUser(userData);
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
       setError('Failed to load user data');
     }
   };
 
   const fetchUserBookings = async () => {
     try {
-      const token = localStorage.getItem('accessToken');
-      const response = await fetch('https://v2.api.noroff.dev/holidaze/profiles/' + JSON.parse(localStorage.getItem('user')).name + '/bookings?_venue=true', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'X-Noroff-API-Key': 'bffb1d1f-dc02-40ef-80e1-4446b9acc60a'
+      const token = localStorage.getItem("accessToken");
+      const userName = JSON.parse(localStorage.getItem("user")).name;
+      const response = await fetch(
+        `https://v2.api.noroff.dev/holidaze/profiles/${userName}/bookings?_venue=true`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": "bffb1d1f-dc02-40ef-80e1-4446b9acc60a",
+          },
         }
-      });
+      );
       
       if (response.ok) {
         const data = await response.json();
+        console.log("User bookings from API:", data.data);
         setBookings(data.data);
       }
     } catch (error) {
-      console.error('Error fetching bookings:', error);
+      console.error("Error fetching bookings:", error);
       setError('Failed to load bookings');
     } finally {
       setLoading(false);
     }
   };
 
-  // ERSTATT HELE updateAvatar FUNKSJONEN MED DENNE:
   const updateAvatar = async (e) => {
     e.preventDefault();
     if (!newAvatar) return;
 
-    // Valider URL format
     if (!newAvatar.match(/\.(jpeg|jpg|gif|png)$/i)) {
-      alert('Please use a direct link to an image file (must end with .jpg, .png, .gif, etc.)');
+      alert(
+        "Please use a direct link to an image file (must end with .jpg, .png, .gif, etc.)"
+      );
       return;
     }
 
     setIsUpdatingAvatar(true);
     try {
-      const token = localStorage.getItem('accessToken');
+      const token = localStorage.getItem("accessToken");
       const userName = user.name;
-      
-      console.log('=== Avatar Update Debug ===');
-      console.log('User:', userName);
-      console.log('Avatar URL:', newAvatar);
-      console.log('Token exists:', !!token);
-      console.log('Token:', token?.substring(0, 20) + '...');
-      
-      const response = await fetch(`https://v2.api.noroff.dev/holidaze/profiles/${userName}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'X-Noroff-API-Key': 'bffb1d1f-dc02-40ef-80e1-4446b9acc60a'
-        },
-        body: JSON.stringify({
-          avatar: {
-            url: newAvatar,
-            alt: `${user.name}'s avatar`
-          }
-        })
-      });
 
-      console.log('Response status:', response.status);
-      
+      const response = await fetch(
+        `https://v2.api.noroff.dev/holidaze/profiles/${userName}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": "bffb1d1f-dc02-40ef-80e1-4446b9acc60a",
+          },
+          body: JSON.stringify({
+            avatar: {
+              url: newAvatar,
+              alt: `${user.name}'s avatar`,
+            },
+          }),
+        }
+      );
+
       const responseText = await response.text();
-      console.log('Raw response:', responseText);
-      
+
       if (!response.ok) {
         let errorData;
         try {
@@ -105,27 +104,22 @@ const MyBookingPage = () => {
         } catch (e) {
           errorData = { message: responseText };
         }
-        console.error('API Error:', errorData);
-        throw new Error(errorData.errors?.[0]?.message || errorData.message || `HTTP error! status: ${response.status}`);
+        throw new Error(
+          errorData.errors?.[0]?.message ||
+            errorData.message ||
+            `HTTP error! status: ${response.status}`
+        );
       }
 
       const updatedUser = JSON.parse(responseText);
-      console.log('Updated user data:', updatedUser);
-      
-      // Oppdater state og localStorage
       setUser(updatedUser.data);
-      localStorage.setItem('user', JSON.stringify(updatedUser.data));
-      setNewAvatar('');
-      
-      // Trigger navigation update
-      window.dispatchEvent(new Event('storage'));
-      
-      alert('Avatar updated successfully!');
-      
+      localStorage.setItem("user", JSON.stringify(updatedUser.data));
+      setNewAvatar("");
+      setShowAvatarForm(false);
+
+      window.dispatchEvent(new Event("storage"));
+      alert("Avatar updated successfully!");
     } catch (error) {
-      console.error('=== Avatar Update Error ===');
-      console.error('Error details:', error);
-      console.error('Error message:', error.message);
       alert(`Failed to update avatar: ${error.message}`);
     } finally {
       setIsUpdatingAvatar(false);
@@ -133,9 +127,9 @@ const MyBookingPage = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('user');
-    navigate('/');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   const getCurrentBookings = () => {
@@ -169,117 +163,151 @@ const MyBookingPage = () => {
   return (
     <div className={`${Styles.dashboard} container-fluid py-4`}>
       <div className="container">
-        {/* Header */}
-        <div className="row mb-4">
+        {/* User Profile Section - Same as MyVenuePage */}
+        <div className="row mb-5">
           <div className="col-12">
-            <div className="d-flex justify-content-between align-items-center">
-              <h1 className="h2">My Dashboard</h1>
-              <button onClick={logout} className="btn btn-outline-secondary">
-                Logout
-              </button>
+            <div className="card h-100 border-0 bg-transparent">
+              <div className="card-body bg-transparent">
+                <div className="d-flex align-items-center justify-content-center">
+                  <img
+                    src={user.avatar?.url || "https://via.placeholder.com/150"}
+                    alt={user.name}
+                    className={`${Styles.avatar} rounded-circle me-3`}
+                  />
+                  <div>
+                    <span className={`${Styles.welcomeText}`}>
+                      Welcome, {user?.name}!
+                    </span>
+                    <p className="text-muted mb-0">{user.email}</p>
+                    <div className="d-flex align-items-start gap-2 mt-2">
+                      {!showAvatarForm ? (
+                        <button
+                          className={`${Styles.btn} btn btn-link p-0 mt-3`}
+                          style={{ textDecoration: "underline" }}
+                          onClick={() => setShowAvatarForm(true)}
+                          type="button"
+                        >
+                          Change avatar
+                        </button>
+                      ) : (
+                        <form onSubmit={updateAvatar} className="mt-4">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              Update Avatar URL:
+                            </label>
+                            <input
+                              type="url"
+                              className="form-control"
+                              value={newAvatar}
+                              onChange={(e) => setNewAvatar(e.target.value)}
+                              placeholder="https://example.com/your-image.jpg"
+                            />
+                            <div className="form-text">
+                              <small>
+                                <strong>
+                                  Must be a direct link to the image (ends with
+                                  .jpg, .png, etc.)
+                                </strong>
+                              </small>
+                            </div>
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn btn-primary"
+                            disabled={isUpdatingAvatar || !newAvatar}
+                          >
+                            {isUpdatingAvatar ? "Updating..." : "Update Avatar"}
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-link ms-2"
+                            onClick={() => setShowAvatarForm(false)}
+                          >
+                            Cancel
+                          </button>
+                        </form>
+                      )}
+
+                      <button
+                        onClick={logout}
+                        className={`${Styles.btn} btn btn-link p-0 mt-3`}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         {error && (
-          <div className="alert alert-danger" role="alert">
-            {error}
+          <div className="row mb-3">
+            <div className="col-12">
+              <div className="alert alert-danger">{error}</div>
+            </div>
           </div>
         )}
 
-        {/* User Profile Section */}
-        <div className="row mb-5">
-          <div className="col-lg-4 col-md-6">
-            <div className="card h-100">
-              <div className="card-body text-center">
-                <div className={Styles.avatarSection}>
-                  <img
-                    src={user.avatar?.url || 'https://via.placeholder.com/150'}
-                    alt={user.name}
-                    className={`${Styles.avatar} rounded-circle mb-3`}
-                  />
-                  <h4 className="card-title">{user.name}</h4>
-                  <p className="text-muted">{user.email}</p>
-                </div>
-
-                <form onSubmit={updateAvatar} className="mt-4">
-                  <div className="mb-3">
-                    <label className="form-label">Update Avatar URL:</label>
-                    <input
-                      type="url"
-                      className="form-control"
-                      value={newAvatar}
-                      onChange={(e) => setNewAvatar(e.target.value)}
-                      placeholder="https://example.com/your-image.jpg"
-                    />
-                    <div className="form-text">
-                      <small>
-                        <strong>Must be a direct link to the image (ends with .jpg, .png, etc.)</strong>
-                      </small>
-                    </div>
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={isUpdatingAvatar || !newAvatar}
-                  >
-                    {isUpdatingAvatar ? 'Updating...' : 'Update Avatar'}
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-lg-8 col-md-6">
-            <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title">Account Statistics</h5>
-                <div className="row text-center">
-                  <div className="col-4">
-                    <div className="border-end">
-                      <h3 className="text-primary">{bookings.length}</h3>
-                      <small className="text-muted">Total Bookings</small>
-                    </div>
-                  </div>
-                  <div className="col-4">
-                    <div className="border-end">
-                      <h3 className="text-success">{getCurrentBookings().length}</h3>
-                      <small className="text-muted">Active Bookings</small>
-                    </div>
-                  </div>
-                  <div className="col-4">
-                    <h3 className="text-warning">{getPastBookings().length}</h3>
-                    <small className="text-muted">Past Bookings</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Current Bookings */}
+        {/* Current & Upcoming Bookings Section */}
         <div className="row mb-5">
           <div className="col-12">
-            <div className="card">
-              <div className="card-header">
-                <h5 className="mb-0">Current & Upcoming Bookings</h5>
+            <div className="card bg-transparent border-0">
+              <div className="card-header bg-transparent border-0">
+                <h5 className={`${Styles.venueHeader} mb-0`}>
+                  Current & Upcoming Bookings
+                </h5>
               </div>
               <div className="card-body">
                 {getCurrentBookings().length === 0 ? (
-                  <p className="text-muted text-center py-4">No current bookings</p>
+                  <p className="text-muted text-center py-4">
+                    You have no current or upcoming bookings.
+                  </p>
                 ) : (
                   <div className="row">
                     {getCurrentBookings().map((booking) => (
-                      <div key={booking.id} className="col-lg-6 col-md-12 mb-3">
-                        <div className="card border-success">
-                          <div className="card-body">
-                            <h6 className="card-title">{booking.venue?.name || 'Venue Name'}</h6>
-                            <p className="card-text">
-                              <strong>Check-in:</strong> {new Date(booking.dateFrom).toLocaleDateString()}<br />
-                              <strong>Check-out:</strong> {new Date(booking.dateTo).toLocaleDateString()}<br />
-                              <strong>Guests:</strong> {booking.guests}
-                            </p>
-                            <span className="badge bg-success">Active</span>
+                      <div key={booking.id} className="col-md-6 mb-3">
+                        <div className="card h-100">
+                          <div className="row g-0 align-items-center">
+                            <div className="col-md-5">
+                              <img
+                                src={
+                                  booking.venue?.media?.[0]?.url ||
+                                  "https://via.placeholder.com/300x200"
+                                }
+                                className="img-fluid rounded-start"
+                                alt={booking.venue?.media?.[0]?.alt || booking.venue?.name}
+                                style={{
+                                  width: "100%",
+                                  objectFit: "cover",
+                                  minHeight: "150px",
+                                  height: "350px",
+                                }}
+                              />
+                            </div>
+                            <div className="col-md-7">
+                              <div className="card-body">
+                                <div className="d-flex justify-content-between align-items-center mb-2">
+                                  <h6 className="card-title mb-0">
+                                    {booking.venue?.name || 'Venue Name'}
+                                  </h6>
+                                  <span className="badge bg-success">Active</span>
+                                </div>
+                                <p className="card-text mb-1">
+                                  <strong>Check-in:</strong> {new Date(booking.dateFrom).toLocaleDateString()}
+                                </p>
+                                <p className="card-text mb-1">
+                                  <strong>Check-out:</strong> {new Date(booking.dateTo).toLocaleDateString()}
+                                </p>
+                                <p className="card-text mb-1">
+                                  <strong>Guests:</strong> {booking.guests}
+                                </p>
+                                <p className="card-text mb-1">
+                                  <strong>Location:</strong> {booking.venue?.location?.city}, {booking.venue?.location?.country}
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -291,29 +319,62 @@ const MyBookingPage = () => {
           </div>
         </div>
 
-        {/* Past Bookings */}
+        {/* Past Bookings Section */}
         <div className="row mb-5">
           <div className="col-12">
-            <div className="card">
-              <div className="card-header">
-                <h5 className="mb-0">Past Bookings</h5>
+            <div className="card bg-transparent border-0">
+              <div className="card-header bg-transparent border-0">
+                <h5 className={`${Styles.venueHeader} mb-0`}>Past Bookings</h5>
               </div>
               <div className="card-body">
                 {getPastBookings().length === 0 ? (
-                  <p className="text-muted text-center py-4">No past bookings</p>
+                  <p className="text-muted text-center py-4">
+                    You have no past bookings.
+                  </p>
                 ) : (
                   <div className="row">
                     {getPastBookings().map((booking) => (
-                      <div key={booking.id} className="col-lg-6 col-md-12 mb-3">
-                        <div className="card border-secondary">
-                          <div className="card-body">
-                            <h6 className="card-title">{booking.venue?.name || 'Venue Name'}</h6>
-                            <p className="card-text">
-                              <strong>Check-in:</strong> {new Date(booking.dateFrom).toLocaleDateString()}<br />
-                              <strong>Check-out:</strong> {new Date(booking.dateTo).toLocaleDateString()}<br />
-                              <strong>Guests:</strong> {booking.guests}
-                            </p>
-                            <span className="badge bg-secondary">Completed</span>
+                      <div key={booking.id} className="col-md-6 mb-3">
+                        <div className="card h-100">
+                          <div className="row g-0 align-items-center">
+                            <div className="col-md-5">
+                              <img
+                                src={
+                                  booking.venue?.media?.[0]?.url ||
+                                  "https://via.placeholder.com/300x200"
+                                }
+                                className="img-fluid rounded-start"
+                                alt={booking.venue?.media?.[0]?.alt || booking.venue?.name}
+                                style={{
+                                  width: "100%",
+                                  objectFit: "cover",
+                                  minHeight: "150px",
+                                  height: "350px",
+                                }}
+                              />
+                            </div>
+                            <div className="col-md-7">
+                              <div className="card-body">
+                                <div className="d-flex justify-content-between align-items-center mb-2">
+                                  <h6 className="card-title mb-0">
+                                    {booking.venue?.name || 'Venue Name'}
+                                  </h6>
+                                  <span className="badge bg-secondary">Completed</span>
+                                </div>
+                                <p className="card-text mb-1">
+                                  <strong>Check-in:</strong> {new Date(booking.dateFrom).toLocaleDateString()}
+                                </p>
+                                <p className="card-text mb-1">
+                                  <strong>Check-out:</strong> {new Date(booking.dateTo).toLocaleDateString()}
+                                </p>
+                                <p className="card-text mb-1">
+                                  <strong>Guests:</strong> {booking.guests}
+                                </p>
+                                <p className="card-text mb-1">
+                                  <strong>Location:</strong> {booking.venue?.location?.city}, {booking.venue?.location?.country}
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
