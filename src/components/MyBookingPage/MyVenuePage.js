@@ -22,7 +22,6 @@ const MyVenuePage = () => {
   const [myVenues, setMyVenues] = useState([]);
   const [showAvatarForm, setShowAvatarForm] = useState(false);
   const [editingVenue, setEditingVenue] = useState(null);
-  const [searchLocation, setSearchLocation] = useState(""); 
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
