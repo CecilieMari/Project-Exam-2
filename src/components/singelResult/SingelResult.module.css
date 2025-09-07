@@ -4,15 +4,25 @@
     font-weight: bold;
 }
 
+.card {
+    width: 900px;
+    max-width: 100%;
+    height: auto;
+}
+
+
 /* Image Gallery Styling */
 .imageSection {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .imageGallery {
     position: relative;
-    width: 100%;
-    height: 400px;
+    width: 900px;
+     max-width: 100%;
+    height: auto;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -120,7 +130,7 @@
 .calendar .react-calendar {
     background: transparent !important;
     border: none !important;
-    max-width: 250px;
+    max-width: 100px;
 }
 
 .calendar .react-calendar__navigation {
@@ -276,6 +286,13 @@
 
 .customBackground {
     background-color: #F4E6D7;
+    width: 400px;
+    height: auto;   
+}
+
+.cardBody {
+    width: 400px;
+    height: auto;
 }
 
 /* Mobile responsiv */
