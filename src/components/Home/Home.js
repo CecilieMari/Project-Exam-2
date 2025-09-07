@@ -46,32 +46,6 @@ function Home() {
     fetchVenues();
   }, []);
 
-  const fetchAllVenues = async () => {
-    let allVenues = [];
-    let offset = 0;
-    const limit = 100;
-    let hasMore = true;
-
-    while (hasMore) {
-      const response = await fetch(
-        `https://v2.api.noroff.dev/holidaze/venues?limit=${limit}&offset=${offset}`
-      );
-      const data = await response.json();
-      const venuesBatch = Array.isArray(data.data) ? data.data : [];
-      allVenues = allVenues.concat(venuesBatch);
-      if (venuesBatch.length < limit) {
-        hasMore = false;
-      } else {
-        offset += limit;
-      }
-    }
-    setAllVenues(allVenues);
-  };
-
-  useEffect(() => {
-    fetchAllVenues();
-  }, []);
-
   const handleSearch = (criteria) => {
     setSearchCriteria(criteria);
     setHasSearched(true);

@@ -14,7 +14,12 @@ function NavDesktop() {
               Destinasjon
             </Link>
           </li>
-          
+          <li className={`nav-item ${Styles.Nav}`}>
+            <Link className={`nav-link ${Styles.Nav}`} to="/all-venues">
+              All Venues
+            </Link>
+          </li>
+
           {!isLoggedIn ? (
             
             <>
