@@ -22,6 +22,7 @@ const MyVenuePage = () => {
   const [myVenues, setMyVenues] = useState([]);
   const [showAvatarForm, setShowAvatarForm] = useState(false);
   const [editingVenue, setEditingVenue] = useState(null);
+  const [searchLocation] = useState(""); // Added state for search location
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -67,12 +68,10 @@ const MyVenuePage = () => {
     }
   };
 
-
   const updateAvatar = async (e) => {
     e.preventDefault();
     if (!newAvatar) return;
 
-    
     if (!newAvatar.match(/\.(jpeg|jpg|gif|png)$/i)) {
       alert(
         "Please use a direct link to an image file (must end with .jpg, .png, .gif, etc.)"
@@ -132,12 +131,10 @@ const MyVenuePage = () => {
       const updatedUser = JSON.parse(responseText);
       console.log("Updated user data:", updatedUser);
 
-      
       setUser(updatedUser.data);
       localStorage.setItem("user", JSON.stringify(updatedUser.data));
       setNewAvatar("");
 
-      
       window.dispatchEvent(new Event("storage"));
 
       alert("Avatar updated successfully!");
@@ -180,7 +177,6 @@ const MyVenuePage = () => {
         }
       );
       if (res.ok) {
-        
         setMyVenues((prev) => prev.filter((v) => v.id !== venueId));
       } else {
         alert("Failed to delete venue.");
@@ -350,7 +346,7 @@ const MyVenuePage = () => {
                         setVenueSuccess(
                           editingVenue ? "Venue updated!" : "Venue created!"
                         );
-                        fetchMyVenues(); 
+                        fetchMyVenues();
                         setVenueName("");
                         setVenueDesc("");
                         setVenueImg("");
