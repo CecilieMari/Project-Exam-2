@@ -15,55 +15,73 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setError('');
-    setIsLoading(true);
+  e.preventDefault();
+  setError('');
+  setIsLoading(true);
 
-    try {
-      console.log('Attempting login with:', formData);
-      const response = await authAPI.login(formData);
-      console.log('Login successful:', response);
-      
-    
-      if (checkLoginStatus) {
-        checkLoginStatus();
-      }
-      
-    
-      window.dispatchEvent(new Event('storage'));
-      
-      
-      setTimeout(() => {
-        const savedToken = localStorage.getItem('accessToken');
-        const savedUser = localStorage.getItem('user');
-        
-        if (savedToken && savedUser) {
-          console.log('Data confirmed in localStorage, redirecting...');
-          
-          
-          try {
-            const user = JSON.parse(savedUser);
-            if (user.venueManager) {
-              navigate('/venue-manager-dashboard');
-            } else {
-              navigate('/my-bookings'); 
-            }
-          } catch (e) {
-            navigate('/my-bookings'); 
-          }
-        } else {
-          console.error('Data missing from localStorage');
-          setError('Failed to save login data. Please try again.');
+  try {
+    console.log('Attempting login with:', formData);
+    const response = await authAPI.login(formData);
+    console.log('Login successful:', response);
+
+    // Hent profil for å få venueManager
+    const profileRes = await fetch(
+      `https://v2.api.noroff.dev/holidaze/profiles/${response.data.name}`,
+      {
+        headers: {
+          Authorization: `Bearer ${response.data.accessToken}`,
+          'X-Noroff-API-Key': 'bffb1d1f-dc02-40ef-80e1-4446b9acc60a'
         }
-      }, 100);
-      
-    } catch (error) {
-      console.error('Login failed:', error);
-      setError('Login failed. Please check your credentials and try again.');
-    } finally {
-      setIsLoading(false);
+      }
+    );
+    const profileData = await profileRes.json();
+    console.log('Profile data:', profileData);
+
+    if (!profileData.data) {
+      throw new Error('Could not fetch user profile. Please try again.');
     }
-  };
+
+    // Lagre bruker med venueManager i localStorage
+    const userWithVenueManager = { ...response.data, venueManager: profileData.data.venueManager };
+    localStorage.setItem('user', JSON.stringify(userWithVenueManager));
+    localStorage.setItem('accessToken', response.data.accessToken);
+
+    if (checkLoginStatus) {
+      checkLoginStatus();
+    }
+
+    window.dispatchEvent(new Event('storage'));
+
+    setTimeout(() => {
+      const savedToken = localStorage.getItem('accessToken');
+      const savedUser = localStorage.getItem('user');
+
+      if (savedToken && savedUser) {
+        console.log('Data confirmed in localStorage, redirecting...');
+        try {
+          const user = JSON.parse(savedUser);
+          console.log('User object:', user);
+          if (user.venueManager) {
+            navigate('/my-venue');
+          } else {
+            navigate('/my-bookings');
+          }
+        } catch (e) {
+          navigate('/my-bookings');
+        }
+      } else {
+        console.error('Data missing from localStorage');
+        setError('Failed to save login data. Please try again.');
+      }
+    }, 100);
+
+  } catch (error) {
+    console.error('Login failed:', error);
+    setError('Login failed. Please check your credentials and try again.');
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center min-vh-100">
