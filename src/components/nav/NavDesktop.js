@@ -33,10 +33,13 @@ function NavDesktop() {
            
             <>
               <li className={`nav-item ${Styles.Nav}`}>
-                <Link className={`nav-link ${Styles.Nav}`} to="/my-bookings">
-                  My Bookings
-                </Link>
-              </li>
+  <Link
+    className={`nav-link ${Styles.Nav}`}
+    to={user?.venueManager ? "/my-venue" : "/my-bookings"}
+  >
+    {user?.venueManager ? "My Venue" : "My Bookings"}
+  </Link>
+</li>
               <li className={`nav-item ${Styles.Nav}`}>
                 <span className={`nav-link ${Styles.Nav} ${Styles.welcomeText}`}>
                   Welcome, {user?.name}!
