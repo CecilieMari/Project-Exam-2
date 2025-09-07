@@ -11,6 +11,8 @@ import SingelResult from './components/singelResult/SingelResult';
 import MyBookingPage from './components/MyBookingPage/MyBookingPage';
 import MyVenuePage from './components/MyBookingPage/MyVenuePage';
 import { AuthProvider } from './components/Aut/AuthContext';
+import AllVenue from './components/AllVenue/AllVenue';
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
          <Route path="/my-bookings" element={<MyBookingPage />} />
           <Route path="/my-venue" element={<MyVenuePage />} />
          <Route path="/register" element={<RegisterGuest />} />
+          <Route path="/all-venues" element={<AllVenue />} />
         </Routes>
        </Layout>
     </Router>
