@@ -15,14 +15,14 @@ function AllVenue() {
                 setIsLoading(true);
                 setError(null);
                 
-                // Hent ekte data fra API
+             
                 const response = await venuesAPI.getAll();
                 console.log('AllVenue API Response:', response);
                 
                 const allVenues = response.data || response || [];
                 console.log('All venues count:', allVenues.length);
                 
-                // Sorter venues etter rating (høyest først) og ta de 20 beste
+               
                 const sortedVenues = allVenues
                     .sort((a, b) => (b.rating || 0) - (a.rating || 0))
                     .slice(0, 20);
@@ -34,7 +34,7 @@ function AllVenue() {
                 setError(err.message);
                 console.error("Error fetching top venues:", err);
                 
-                // Fallback til mock data kun hvis API feiler
+                
                 const mockTopVenues = [
                     {
                         id: "mock-1",
@@ -147,7 +147,7 @@ function AllVenue() {
                                         from ${venue.price}
                                     </p>
                                     
-                                    {/* Amenities på samme linje som pris */}
+                                   
                                     {venue.meta && (
                                         <div className={Styles.amenities}>
                                             {venue.meta.wifi && (

@@ -13,6 +13,8 @@ import MyVenuePage from './components/MyBookingPage/MyVenuePage';
 import { AuthProvider } from './components/Aut/AuthContext';
 import AllVenue from './components/AllVenue/AllVenue';
 
+import BookingConfirmation from './components/BookingForm/BookingConfirmation';
+
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path="/my-venue" element={<MyVenuePage />} />
          <Route path="/register" element={<RegisterGuest />} />
           <Route path="/all-venues" element={<AllVenue />} />
+          <Route path="/booking-confirmation/:bookingId" element={<BookingConfirmation />} />
         </Routes>
        </Layout>
     </Router>
