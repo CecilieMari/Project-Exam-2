@@ -24,6 +24,28 @@
   text-overflow: ellipsis;
 }
 
+.bookButton {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 300;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    color: #FE3301;
+    border: 1px solid #FE3301;
+    display: block;
+    margin-top: 15px;
+}
+
+.bookButton:hover {
+    background: #FE3301;
+    color: white;
+    text-decoration: none;
+}
+
 /* Featured venues section */
 .featuredSection {
     margin: 40px auto;
@@ -60,27 +82,96 @@
     max-width: 100%;
 }
 
+/* Legg til disse nye CSS klassene */
+.imageContainer {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
 .venueImage {
     max-width: 100%;
     width: 300px;
     height: 200px;
     object-fit: cover;
     border-radius: 20px;
-    margin-bottom: 10px;
     box-shadow: 16px 9px 11px rgba(0, 0, 0, 0.08);
 }
 
-.venuePrice {
-    color: #FE3301;
-    margin-bottom: 5px;
+.noImage {
+    width: 300px;
+    height: 200px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.venueContent {
     text-align: left;
+    padding: 0;
+}
+
+.venueName {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
 }
 
 .venueLocation {
     color: #666;
-    font-size: 20px;
+    font-size: 14px;
     margin-bottom: 10px;
-    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.venueLocation i {
+    color: #FE3301;
+}
+
+.venueDetails {
+    margin-bottom: 15px;
+}
+
+/* DETTE ER VIKTIG - Pris og amenities på samme linje */
+.priceAndAmenities {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.venuePrice {
+    color: #FE3301;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0;
+}
+
+.amenities {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.amenity {
+    color: #666;
+    font-size: 14px;
+    padding: 2px;
+}
+
+.amenity i {
+    width: 16px;
+    text-align: center;
+}
+
+.venueActions {
+    margin-top: 15px;
 }
 
 .loading {
@@ -108,7 +199,6 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
-
 
 .adButton {
     position: absolute;
@@ -200,6 +290,13 @@
         margin-bottom: 20px;
         padding: 0 20px;
     }
+
+    /* Mobil layout for pris og amenities */
+    .priceAndAmenities {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 
 /* Mobil */
@@ -228,11 +325,18 @@
     }
 
     .adButton {
-        font-size: 16px; /* Liten mobil */
+        font-size: 16px;
         padding: 2px 15px;
         margin-top: 10px;
     }
 
+    .amenities {
+        gap: 6px;
+    }
+
+    .amenity {
+        font-size: 12px;
+    }
 }
 
 /* Ekstra små skjermer */
@@ -250,7 +354,7 @@
     }
 
     .adButton {
-        font-size: 14px; /* Ekstra liten skjerm */
+        font-size: 14px;
         padding: 2px 12px;
         margin-top: 8px;
     }

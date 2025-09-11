@@ -51,61 +51,295 @@
     color: #333;
 }
 
-.venuesGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+.searchResultsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
+.resultsTitle {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* GRID LAYOUT - samme som AllVenue */
+.venuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* RESPONSIV */
+@media (max-width: 768px) {
+  .venuesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .venuesGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* VENUE CARD - samme styling som AllVenue */
 .venueCard {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .venueCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+}
+
+/* IMAGE CONTAINER */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .venueImage {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+}
+
+.venueCard:hover .venueImage {
+  transform: scale(1.05);
+}
+
+.noImage {
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 12px;
+}
+
+/* CONTENT */
+.venueContent {
+  padding: 15px 5px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .venueName {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.venueDescription {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.venuePrice {
-    font-weight: bold;
-    color: #FE3301;
-    margin-bottom: 5px;
-}
-
-.venueGuests {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 5px;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  height: 2.6em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .venueLocation {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.venueLocation i {
+  color: #000000;
+  font-size: 0.8rem;
+  width: 12px;
+  text-align: center;
+}
+
+.venueDescription {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* VENUE DETAILS */
+.venueDetails {
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.priceAndAmenities {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.venuePrice {
+  font-size: 1.1rem;
+  color: #FE3301;
+  margin-bottom: 0;
+}
+
+.perNight {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: normal;
+}
+
+.venueGuests {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.venueGuests i {
+  color: #000000;
+  font-size: 0.8rem;
+}
+
+/* AMENITIES - samme som AllVenue */
+.amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 0;
+  min-height: 30px;
+}
+
+.amenity {
+  padding: 3px 6px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.amenity i {
+  font-size: 0.7rem;
+  color: #707070;
+}
+
+/* RATING */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.stars i.filled {
+  color: #ffd700;
+}
+
+.stars i.empty {
+  color: #ddd;
+}
+
+.ratingNumber {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* ACTION BUTTONS - samme som AllVenue */
+.venueActions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.viewButton,
+.bookButton {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: 300;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.viewButton {
+  color: #666;
+  border: 1px solid #ddd;
+  background: white;
+}
+
+.viewButton:hover {
+  background: #f5f5f5;
+  border-color: #999;
+  color: #333;
+}
+
+.bookButton {
+  color: #FE3301;
+  border: 1px solid #FE3301;
+  background: white;
+}
+
+.bookButton:hover {
+  background: #FE3301;
+  color: white;
+}
+
+/* LOADING & NO RESULTS */
+.loadingContainer,
+.noResults {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #ff6b6b;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.noResults h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.noResults p {
+  color: #666;
+  margin-bottom: 10px;
 }

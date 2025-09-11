@@ -8,9 +8,9 @@ import Styles from "./home.module.css";
 import fakeAd from "../../img/index-ad-page.jpg";
 
 const FEATURED_VENUE_IDS = [
-  "732ec3c2-330b-4a01-8bdd-1ffcad704974",
-  "561e92d1-48d1-4a43-a674-0f93b5e21bd1",
-  "189e6c43-0885-4b45-83dd-5ae4521915f2",
+  "e1710586-580a-4ae2-96f4-3f2d0bd9128f",
+  "5fc12992-c704-415b-b9b1-95a7bf8302bf",
+  "b69d6c6a-efb4-4472-ace0-9535e4ee35e1",
 ];
 
 function Home() {
@@ -88,38 +88,78 @@ function Home() {
           <div className={Styles.loading}>Loading featured venues...</div>
         ) : (
           <div className={Styles.featuredGrid}>
-            {featuredVenues.map((venue) => (
+            {featuredVenues.map((venue, index) => (
               <div key={venue.id} className={Styles.featuredCard}>
-                {venue.media && venue.media.length > 0 && (
-                  <img
-                    src={venue.media[0].url}
-                    alt={venue.name}
-                    className={Styles.venueImage}
-                  />
-                )}
+                
+                {/* Venue image */}
+                <div className={Styles.imageContainer}>
+                  {venue.media && venue.media.length > 0 ? (
+                    <img 
+                      src={venue.media[0].url} 
+                      alt={venue.media[0].alt || venue.name}
+                      className={Styles.venueImage}
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/400x250?text=No+Image';
+                      }}
+                    />
+                  ) : (
+                    <div className={Styles.noImage}>
+                      <span>No Image Available</span>
+                    </div>
+                  )}
+                </div>
 
-                <div className={Styles.cardContent}>
+                {/* Venue content */}
+                <div className={Styles.venueContent}>
                   <h3 className={Styles.venueName}>{venue.name}</h3>
 
+                  {/* Location */}
                   {venue.location && (
                     <p className={Styles.venueLocation}>
-                      📍 {venue.location.city}, {venue.location.country}
+                      <i className="fas fa-map-marker-alt"></i> {[venue.location.city, venue.location.country]
+                        .filter(Boolean)
+                        .join(', ') || 'Location not specified'}
                     </p>
                   )}
+                  
+                  <div className={Styles.venueDetails}>
+                    <div className={Styles.priceAndAmenities}>
+                      <p className={Styles.venuePrice}>
+                        from ${venue.price}
+                      </p>
+                      
+                      {/* Amenities */}
+                      {venue.meta && (
+                        <div className={Styles.amenities}>
+                          {venue.meta.wifi && (
+                            <span className={Styles.amenity}>
+                              <i className="fas fa-wifi"></i>
+                            </span>
+                          )}
+                          {venue.meta.parking && (
+                            <span className={Styles.amenity}>
+                              <i className="fas fa-car"></i>
+                            </span>
+                          )}
+                          {venue.meta.pets && (
+                            <span className={Styles.amenity}>
+                              <i className="fas fa-paw"></i> 
+                            </span>
+                          )}
+                          {venue.meta.breakfast && (
+                            <span className={Styles.amenity}>
+                              <i className="fas fa-coffee"></i>
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-                  <p className={Styles.venuePrice}>
-                    From: ${venue.price}/night
-                  </p>
-
-                  <div className={Styles.cardActions}>
-                    <Link
-                      to={`/venue/${venue.id}`}
-                      className={Styles.viewButton}
-                    >
-                      View Details
-                    </Link>
-                    <Link
-                      to={`/booking/${venue.id}`}
+                  {/* Action buttons */}
+                  <div className={Styles.venueActions}>
+                    <Link 
+                      to={`/venue/${venue.id}`} 
                       className={Styles.bookButton}
                     >
                       Book Now
@@ -130,6 +170,7 @@ function Home() {
             ))}
           </div>
         )}
+        
         <div className={Styles.fakeAdvertisement}>
           <img src={fakeAd} alt="Advertisement" className={Styles.adImage} />
           <div className={Styles.adText}>Your Escape Starts Here </div>

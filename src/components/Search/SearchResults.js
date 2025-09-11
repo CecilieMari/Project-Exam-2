@@ -1,20 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Styles from './SearchResults.module.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-function SearchResults({ 
+const SearchResults = ({ 
     venues = [], 
     isLoading = false, 
     error = null, 
     hasSearched = false, 
     searchCriteria = {}, 
     onShowFeatured 
-}) {
+})  => {
 
     if (isLoading) {
         return (
             <div className={Styles.loadingContainer}>
-                <div className={Styles.loading}>Loading venues...</div>
+                <div className={Styles.spinner}></div>
+                <p>Searching venues...</p>
             </div>
         );
     }
@@ -119,7 +121,7 @@ function SearchResults({
                                     alt={venue.media[0].alt || venue.name}
                                     className={Styles.venueImage}
                                     onError={(e) => {
-                                        e.target.src = '/placeholder-image.jpg'; // Fallback image
+                                        e.target.src = 'https://via.placeholder.com/400x250?text=No+Image';
                                     }}
                                 />
                             ) : (
@@ -129,63 +131,98 @@ function SearchResults({
                             )}
                         </div>
 
-                        {/* Venue details */}
+                        {/* Venue content */}
                         <div className={Styles.venueContent}>
-                            <h3 className={Styles.venueName}>{venue.name}</h3>
-                            
-                            {venue.description && (
-                                <p className={Styles.venueDescription}>
-                                    {venue.description.length > 100 
-                                        ? `${venue.description.substring(0, 100)}...` 
-                                        : venue.description
-                                    }
-                                </p>
-                            )}
-                            
-                            <div className={Styles.venueDetails}>
-                                <p className={Styles.venuePrice}>
-                                    <strong>${venue.price}</strong> / night
-                                </p>
-                                
-                                <p className={Styles.venueGuests}>
-                                    👥 Max {venue.maxGuests} guests
-                                </p>
-                                
-                                {venue.location && (venue.location.city || venue.location.country) && (
-                                    <p className={Styles.venueLocation}>
-                                        📍 {venue.location.city && venue.location.country 
-                                            ? `${venue.location.city}, ${venue.location.country}`
-                                            : venue.location.city || venue.location.country
-                                        }
-                                    </p>
-                                )}
-                            </div>
+                          <h3 className={Styles.venueName}>{venue.name}</h3>
 
-                            {/* Amenities */}
-                            {(venue.meta) && (
+                          {/* Location */}
+                          {venue.location && (
+                            <p className={Styles.venueLocation}>
+                              <i className="fas fa-map-marker-alt"></i> {[venue.location.city, venue.location.country]
+                                .filter(Boolean)
+                                .join(', ') || 'Location not specified'}
+                            </p>
+                          )}
+
+                          {/* Description */}
+                          {venue.description && (
+                            <p className={Styles.venueDescription}>
+                              {venue.description.length > 100 
+                                ? `${venue.description.substring(0, 100)}...` 
+                                : venue.description
+                              }
+                            </p>
+                          )}
+                          
+                          <div className={Styles.venueDetails}>
+                            <div className={Styles.priceAndAmenities}>
+                              <p className={Styles.venuePrice}>
+                                from ${venue.price} <span className={Styles.perNight}>per night</span>
+                              </p>
+                              
+                              {/* Amenities */}
+                              {venue.meta && (
                                 <div className={Styles.amenities}>
-                                    {venue.meta.wifi && <span className={Styles.amenity}>📶 WiFi</span>}
-                                    {venue.meta.parking && <span className={Styles.amenity}>🚗 Parking</span>}
-                                    {venue.meta.pets && <span className={Styles.amenity}>🐕 Pet Friendly</span>}
-                                    {venue.meta.breakfast && <span className={Styles.amenity}>🥐 Breakfast</span>}
+                                  {venue.meta.wifi && (
+                                    <span className={Styles.amenity} title="WiFi">
+                                      <i className="fas fa-wifi"></i>
+                                    </span>
+                                  )}
+                                  {venue.meta.parking && (
+                                    <span className={Styles.amenity} title="Parking">
+                                      <i className="fas fa-car"></i>
+                                    </span>
+                                  )}
+                                  {venue.meta.pets && (
+                                    <span className={Styles.amenity} title="Pet Friendly">
+                                      <i className="fas fa-paw"></i> 
+                                    </span>
+                                  )}
+                                  {venue.meta.breakfast && (
+                                    <span className={Styles.amenity} title="Breakfast">
+                                      <i className="fas fa-coffee"></i>
+                                    </span>
+                                  )}
                                 </div>
-                            )}
-
-                            {/* Action buttons */}
-                            <div className={Styles.venueActions}>
-                                <Link 
-                                    to={`/venue/${venue.id}`} 
-                                    className={Styles.viewButton}
-                                >
-                                    View Details
-                                </Link>
-                                <Link 
-                                    to={`/venue/${venue.id}`} 
-                                    className={Styles.bookButton}
-                                >
-                                    Book Now
-                                </Link>
+                              )}
                             </div>
+
+                            {/* Max guests */}
+                            <p className={Styles.venueGuests}>
+                              <i className="fas fa-users"></i> Max {venue.maxGuests} guests
+                            </p>
+
+                            {/* Rating */}
+                            {venue.rating && venue.rating > 0 && (
+                              <div className={Styles.rating}>
+                                <div className={Styles.stars}>
+                                  {[...Array(5)].map((_, i) => (
+                                    <i 
+                                      key={i} 
+                                      className={`fas fa-star ${i < Math.floor(venue.rating) ? Styles.filled : Styles.empty}`}
+                                    ></i>
+                                  ))}
+                                </div>
+                                <span className={Styles.ratingNumber}>({venue.rating})</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Action buttons - SAMME SOM AllVenue */}
+                          <div className={Styles.venueActions}>
+                            <Link 
+                              to={`/venue/${venue.id}`} 
+                              className={Styles.viewButton}
+                            >
+                              View Details
+                            </Link>
+                            <Link 
+                              to={`/venue/${venue.id}`} 
+                              className={Styles.bookButton}
+                            >
+                              Book Now
+                            </Link>
+                          </div>
                         </div>
                     </div>
                 ))}
