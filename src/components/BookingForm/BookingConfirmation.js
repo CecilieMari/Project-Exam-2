@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
+import React from 'react';
+import { useLocation, useParams, Link } from 'react-router-dom';
 import Style from './BookingForm.module.css';
-;
-
 
 const BookingConfirmation = () => {
   const location = useLocation();
-
   const { bookingId } = useParams();
   
   console.log('BookingConfirmation mounted');
   console.log('bookingId:', bookingId);
   console.log('location.state:', location.state);
 
-  // Temporary simple render for debugging
   return (
     <div className="container py-5">
       <div className="row justify-content-center">
@@ -25,15 +21,13 @@ const BookingConfirmation = () => {
             <div className="card-body">
               <p className="card-text mb-4">
                 Thank you for booking with Holidaze.
-                Your stay at {location.state.venue?.name} has been successfully confirmed.
-
+                Your stay at {location.state?.venue?.name} has been successfully confirmed.
               </p>
 
               {location.state && (
                 <div>
                   {location.state.booking && (
                     <div className="card mb-4 border-0">
-                     
                       <div className="card-body border-0">
                         <div className="row">
                           {/* VENSTRE KOLONNE - Labels */}
@@ -44,7 +38,7 @@ const BookingConfirmation = () => {
                             <p><strong>Check-out:</strong></p>
                             <p><strong>Guests:</strong></p>
                             <p><strong>Booking Reference:</strong></p>
-                            <p><i className="far fa-envelope fa-3x"></i></p>
+                            <p><strong><i className="far fa-envelope me-2"></i>E-mail:</strong></p>
                           </div>
                           
                           {/* HØYRE KOLONNE - Values */}
@@ -64,7 +58,6 @@ const BookingConfirmation = () => {
                 </div>
               )}
 
-            
               <div className="text-start mb-4">
                 <p className="mb-2">
                   <strong>We look forward to welcoming you to {location.state?.venue?.name || 'your chosen venue'}!</strong>
@@ -75,7 +68,7 @@ const BookingConfirmation = () => {
               </div>
 
               <div className={`${Style.buttonGroup}`}>
-                <Link to="/my-bookings" className={` ${Style.btn} btn text-decoration-none `}>
+                <Link to="/profile" className={`${Style.btn} btn text-decoration-none`}>
                   View My Bookings
                 </Link>
                 <Link to="/venues" className={`${Style.btn} btn text-decoration-none`}>
