@@ -62,20 +62,7 @@ function NavDesktop() {
           )}
         </ul>
         
-        <form className={`d-flex ${Styles.Nav}`} role="search">
-          <input 
-            className={`form-control me-2 ${Styles.Nav} ${Styles.orderRadius}`} 
-            type="search" 
-            placeholder="Search" 
-            aria-label="Search"
-          />
-          <button 
-            className={`btn btn-outline-success ${Styles.Nav} ${Styles.srcButton}`} 
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
+       
       </div>
     </nav>
   );

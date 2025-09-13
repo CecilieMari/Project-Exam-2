@@ -5,17 +5,17 @@ function Footer() {
     return (
         <footer className={Styles.footer}>
             <div className={Styles.logoContainer}>
-                <Link to="/home">
+                <Link to="/">
                     <img className={Styles.miniLogo} src={require('../../img/3.png')} alt="Logo" />
                 </Link>
             </div>
              <div className={Styles.footerContent}>
         <div className={Styles.footerLinks}>
             <Link className={Styles.footerLink} to="/">About us</Link>
-            <Link className={Styles.footerLink} to="/">Destinations</Link>
+            <Link className={Styles.footerLink} to="/all-venues">All Venues</Link>
             <Link className={Styles.footerLink} to="/">Customer service</Link>
-            <Link className={Styles.footerLink} to="/">Log in</Link>
-            <Link className={Styles.footerLink} to="/">Sign up</Link>
+            <Link className={Styles.footerLink} to="/login">Log in</Link>
+            <Link className={Styles.footerLink} to="/register">Sign up</Link>
         </div>
         <div className={Styles.socialMedia}>
             <div>Follow us</div>

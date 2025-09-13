@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth'; 
 import Styles from './NavMobile.module.css'; 
-import NavStyles from './Nav.module.css';
 import NavToggle from './NavToggel';
 
 function NavMobile() {
@@ -20,16 +19,20 @@ function NavMobile() {
           <ul className={`navbar-nav me-auto mb-2 mb-lg-0 ${Styles.Nav}`}>
             <li className={`nav-item ${Styles.Nav}`}>
               <Link className={`nav-link active ${Styles.Nav}`} aria-current="page" to="/">
-                Destinasjon
+                Destination
               </Link>
             </li>
-            
+            <li className={`nav-item ${Styles.Nav}`}>
+              <Link className={`nav-link ${Styles.Nav}`} to="/all-venues">
+                All Venues
+              </Link>
+            </li>
             {!isLoggedIn ? (
               
               <>
                 <li className={`nav-item ${Styles.Nav}`}>
                   <Link className={`nav-link ${Styles.Nav}`} to="/register">
-                    Registrer
+                   Register
                   </Link>
                 </li>
                 <li className={`nav-item ${Styles.Nav}`}>
@@ -65,10 +68,6 @@ function NavMobile() {
               </>
             )}
           </ul>
-          <form className={`d-flex ${Styles.Nav}`} role="search">
-            <input className={`form-control me-2 ${Styles.Nav}`} type="search" placeholder="Search" aria-label="Search"/>
-            <button className={`btn btn-outline-success  ${NavStyles.srcButton}`} type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>
