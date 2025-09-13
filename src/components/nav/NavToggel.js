@@ -1,4 +1,4 @@
-import Style from './NavToggel.module.css';
+import Style from "./NavToggel.module.css";
 
 function NavToggle({ open, onClick }) {
   return (
@@ -11,10 +11,14 @@ function NavToggle({ open, onClick }) {
     >
       {open ? (
         // Kryss-ikon (X)
-        <span style={{ fontSize: '2rem', lineHeight: 1, color: '#FE3301' }}>&#10005;</span>
+        <span style={{ fontSize: "2rem", lineHeight: 1, color: "#FE3301" }}>
+          &#10005;
+        </span>
       ) : (
         // Hamburger-ikon (≡)
-        <span style={{ fontSize: '2rem', lineHeight: 1, color: '#FE3301' }}>&#9776;</span>
+        <span style={{ fontSize: "2rem", lineHeight: 1, color: "#FE3301" }}>
+          &#9776;
+        </span>
       )}
     </button>
   );

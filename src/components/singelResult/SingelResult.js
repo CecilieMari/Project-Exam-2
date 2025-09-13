@@ -15,11 +15,11 @@ function SingleResult() {
   // Kalender state
   const [selectedDates, setSelectedDates] = useState([null, null]);
   const [bookedDates, setBookedDates] = useState([]);
-  
+
   // Legg til guests state
   const [guests, setGuests] = useState(1);
   const [isBooking, setIsBooking] = useState(false);
-  const [bookingError, setBookingError] = useState('');
+  const [bookingError, setBookingError] = useState("");
 
   console.log("Venue ID:", id);
 
@@ -108,48 +108,51 @@ function SingleResult() {
   // Direkte booking funksjon
   const handleDirectBooking = async () => {
     if (!selectedDates[0] || !selectedDates[1]) {
-      setBookingError('Please select check-in and check-out dates');
+      setBookingError("Please select check-in and check-out dates");
       return;
     }
 
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
     setIsBooking(true);
-    setBookingError('');
+    setBookingError("");
 
     try {
-      const response = await fetch('https://v2.api.noroff.dev/holidaze/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'X-Noroff-API-Key': 'bffb1d1f-dc02-40ef-80e1-4446b9acc60a'
-        },
-        body: JSON.stringify({
-          dateFrom: selectedDates[0].toISOString().split('T')[0],
-          dateTo: selectedDates[1].toISOString().split('T')[0],
-          guests: parseInt(guests),
-          venueId: id
-        })
-      });
+      const response = await fetch(
+        "https://v2.api.noroff.dev/holidaze/bookings",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": "bffb1d1f-dc02-40ef-80e1-4446b9acc60a",
+          },
+          body: JSON.stringify({
+            dateFrom: selectedDates[0].toISOString().split("T")[0],
+            dateTo: selectedDates[1].toISOString().split("T")[0],
+            guests: parseInt(guests),
+            venueId: id,
+          }),
+        }
+      );
 
       if (response.ok) {
         const booking = await response.json();
         // Naviger direkte til bekreftelses side
         navigate(`/booking-confirmation/${booking.data.id}`, {
-          state: { 
+          state: {
             booking: booking.data,
             venue: venue,
-            user: JSON.parse(localStorage.getItem('user'))
-          }
+            user: JSON.parse(localStorage.getItem("user")),
+          },
         });
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.errors?.[0]?.message || 'Booking failed');
+        throw new Error(errorData.errors?.[0]?.message || "Booking failed");
       }
     } catch (error) {
       setBookingError(error.message);
@@ -160,7 +163,9 @@ function SingleResult() {
 
   const calculateTotal = () => {
     if (selectedDates[0] && selectedDates[1] && venue) {
-      const nights = Math.ceil((selectedDates[1] - selectedDates[0]) / (1000 * 60 * 60 * 24));
+      const nights = Math.ceil(
+        (selectedDates[1] - selectedDates[0]) / (1000 * 60 * 60 * 24)
+      );
       return venue.price * nights;
     }
     return 0;
@@ -169,7 +174,9 @@ function SingleResult() {
   // Legg til denne funksjonen sammen med de andre funksjonene:
   const calculateNights = () => {
     if (selectedDates[0] && selectedDates[1]) {
-      return Math.ceil((selectedDates[1] - selectedDates[0]) / (1000 * 60 * 60 * 24));
+      return Math.ceil(
+        (selectedDates[1] - selectedDates[0]) / (1000 * 60 * 60 * 24)
+      );
     }
     return 0;
   };
@@ -473,7 +480,7 @@ function SingleResult() {
                 >
                   {[...Array(venue.maxGuests)].map((_, i) => (
                     <option key={i + 1} value={i + 1}>
-                      {i + 1} {i + 1 === 1 ? 'Guest' : 'Guests'}
+                      {i + 1} {i + 1 === 1 ? "Guest" : "Guests"}
                     </option>
                   ))}
                 </select>
@@ -502,7 +509,12 @@ function SingleResult() {
                   </div>
                   <div className="d-flex justify-content-between small mb-1">
                     <span>Nights:</span>
-                    <span>{Math.ceil((selectedDates[1] - selectedDates[0]) / (1000 * 60 * 60 * 24))}</span>
+                    <span>
+                      {Math.ceil(
+                        (selectedDates[1] - selectedDates[0]) /
+                          (1000 * 60 * 60 * 24)
+                      )}
+                    </span>
                   </div>
                   <hr className="my-2" />
                   <div className="d-flex justify-content-between fw-bold">
@@ -516,7 +528,8 @@ function SingleResult() {
               {(!selectedDates[0] || !selectedDates[1]) && (
                 <div className="alert alert-info small mb-3">
                   <i className="fas fa-info-circle me-2"></i>
-                  Please select dates on the calendar to the left to see booking details.
+                  Please select dates on the calendar to the left to see booking
+                  details.
                 </div>
               )}
 
@@ -530,12 +543,11 @@ function SingleResult() {
                 disabled={!selectedDates[0] || !selectedDates[1] || isBooking}
                 onClick={handleDirectBooking}
               >
-                {isBooking 
-                  ? 'Booking...' 
+                {isBooking
+                  ? "Booking..."
                   : selectedDates[0] && selectedDates[1]
                   ? `Book Now - $${calculateTotal()}`
-                  : "Select Dates First"
-                }
+                  : "Select Dates First"}
               </button>
 
               <p className="text-muted text-center small mb-0">

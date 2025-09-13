@@ -90,16 +90,16 @@ function Home() {
           <div className={Styles.featuredGrid}>
             {featuredVenues.map((venue, index) => (
               <div key={venue.id} className={Styles.featuredCard}>
-                
                 {/* Venue image */}
                 <div className={Styles.imageContainer}>
                   {venue.media && venue.media.length > 0 ? (
-                    <img 
-                      src={venue.media[0].url} 
+                    <img
+                      src={venue.media[0].url}
                       alt={venue.media[0].alt || venue.name}
                       className={Styles.venueImage}
                       onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/400x250?text=No+Image';
+                        e.target.src =
+                          "https://via.placeholder.com/400x250?text=No+Image";
                       }}
                     />
                   ) : (
@@ -116,18 +116,17 @@ function Home() {
                   {/* Location */}
                   {venue.location && (
                     <p className={Styles.venueLocation}>
-                      <i className="fas fa-map-marker-alt"></i> {[venue.location.city, venue.location.country]
+                      <i className="fas fa-map-marker-alt"></i>{" "}
+                      {[venue.location.city, venue.location.country]
                         .filter(Boolean)
-                        .join(', ') || 'Location not specified'}
+                        .join(", ") || "Location not specified"}
                     </p>
                   )}
-                  
+
                   <div className={Styles.venueDetails}>
                     <div className={Styles.priceAndAmenities}>
-                      <p className={Styles.venuePrice}>
-                        from ${venue.price}
-                      </p>
-                      
+                      <p className={Styles.venuePrice}>from ${venue.price}</p>
+
                       {/* Amenities */}
                       {venue.meta && (
                         <div className={Styles.amenities}>
@@ -143,7 +142,7 @@ function Home() {
                           )}
                           {venue.meta.pets && (
                             <span className={Styles.amenity}>
-                              <i className="fas fa-paw"></i> 
+                              <i className="fas fa-paw"></i>
                             </span>
                           )}
                           {venue.meta.breakfast && (
@@ -158,8 +157,8 @@ function Home() {
 
                   {/* Action buttons */}
                   <div className={Styles.venueActions}>
-                    <Link 
-                      to={`/venue/${venue.id}`} 
+                    <Link
+                      to={`/venue/${venue.id}`}
                       className={Styles.bookButton}
                     >
                       Book Now
@@ -170,7 +169,7 @@ function Home() {
             ))}
           </div>
         )}
-        
+
         <div className={Styles.fakeAdvertisement}>
           <img src={fakeAd} alt="Advertisement" className={Styles.adImage} />
           <div className={Styles.adText}>Your Escape Starts Here </div>

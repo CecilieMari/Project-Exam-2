@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import Styles from './Nav.module.css';
+import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import Styles from "./Nav.module.css";
 
 function NavDesktop() {
   const { isLoggedIn, user, logout } = useAuth();
@@ -10,7 +10,11 @@ function NavDesktop() {
       <div className={`container-fluid ${Styles.Nav}`}>
         <ul className={`navbar-nav me-auto mb-2 mb-lg-0 ${Styles.Nav}`}>
           <li className={`nav-item ${Styles.Nav}`}>
-            <Link className={`nav-link active ${Styles.Nav}`} aria-current="page" to="/">
+            <Link
+              className={`nav-link active ${Styles.Nav}`}
+              aria-current="page"
+              to="/"
+            >
               Destinasjon
             </Link>
           </li>
@@ -21,7 +25,6 @@ function NavDesktop() {
           </li>
 
           {!isLoggedIn ? (
-            
             <>
               <li className={`nav-item ${Styles.Nav}`}>
                 <Link className={`nav-link ${Styles.Nav}`} to="/register">
@@ -35,23 +38,24 @@ function NavDesktop() {
               </li>
             </>
           ) : (
-           
             <>
               <li className={`nav-item ${Styles.Nav}`}>
-  <Link
-    className={`nav-link ${Styles.Nav}`}
-    to={user?.venueManager ? "/my-venue" : "/my-bookings"}
-  >
-    {user?.venueManager ? "My Venue" : "My Bookings"}
-  </Link>
-</li>
+                <Link
+                  className={`nav-link ${Styles.Nav}`}
+                  to={user?.venueManager ? "/my-venue" : "/my-bookings"}
+                >
+                  {user?.venueManager ? "My Venue" : "My Bookings"}
+                </Link>
+              </li>
               <li className={`nav-item ${Styles.Nav}`}>
-                <span className={`nav-link ${Styles.Nav} ${Styles.welcomeText}`}>
+                <span
+                  className={`nav-link ${Styles.Nav} ${Styles.welcomeText}`}
+                >
                   Welcome, {user?.name}!
                 </span>
               </li>
               <li className={`nav-item ${Styles.Nav}`}>
-                <button 
+                <button
                   className={`nav-link btn ${Styles.Nav} ${Styles.logoutBtn}`}
                   onClick={logout}
                 >
@@ -61,8 +65,6 @@ function NavDesktop() {
             </>
           )}
         </ul>
-        
-       
       </div>
     </nav>
   );
