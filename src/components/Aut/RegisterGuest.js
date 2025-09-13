@@ -18,60 +18,62 @@ const RegisterGuest = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [registeredUser, setRegisteredUser] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
-const handleRegister = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setError('');
-  
-  
-  if (formData.password.length < 8) {
-    setError('Passordet må være minst 8 tegn langt');
-    setIsLoading(false);
-    return;
-  }
-  
-  if (!formData.email.includes('@stud.noroff.no')) {
-    setError('Email må være en gyldig Noroff student email (@stud.noroff.no)');
-    setIsLoading(false);
-    return;
-  }
-  
-  try {
-    const userData = {
-      name: formData.name.trim(),
-      email: formData.email.trim().toLowerCase(),
-      password: formData.password,
-    };
-
-   
-    if (formData.venueManager) {
-      userData.venueManager = true;
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    
+    if (formData.password.length < 8) {
+      setError('Passordet må være minst 8 tegn langt');
+      setIsLoading(false);
+      return;
     }
-
-    console.log('Sending userData:', userData); // Debug log
     
-    const response = await authAPI.register(userData);
-    console.log('Registration successful:', response);
-    setSuccess(true);
-    setRegisteredUser(response.data);
-    
-  } catch (error) {
-    console.error('Registration failed:', error);
-    
-    
-    if (error.message.includes('400')) {
-      setError('Registration failed. Please check that all fields are filled out correctly and that the email is valid.');
-    } else if (error.message.includes('409')) {
-      setError('A user with this email or username already exists.');
-    } else {
-      setError('Registration failed. Please try again later.');
+    if (!formData.email.includes('@stud.noroff.no')) {
+      setError('Email må være en gyldig Noroff student email (@stud.noroff.no)');
+      setIsLoading(false);
+      return;
     }
-  } finally {
-    setIsLoading(false);
-  }
-};
+    
+    try {
+      const userData = {
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        password: formData.password,
+      };
 
+      if (formData.venueManager) {
+        userData.venueManager = true;
+      }
+
+      console.log('Sending userData:', userData);
+      
+      const response = await authAPI.register(userData);
+      console.log('Registration successful:', response);
+      setSuccess(true);
+      setRegisteredUser(response.data);
+      
+    } catch (error) {
+      console.error('Registration failed:', error);
+      
+      if (error.message.includes('400')) {
+        setError('Registration failed. Please check that all fields are filled out correctly and that the email is valid.');
+      } else if (error.message.includes('409')) {
+        setError('A user with this email or username already exists.');
+      } else {
+        setError('Registration failed. Please try again later.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   if (success) {
     return (
@@ -114,40 +116,60 @@ const handleRegister = async (e) => {
           
           <form onSubmit={handleRegister}>
             <div className="mb-3">
-  <input
-    type="text"
-    className={`${Styles['form-input']} form-control rounded-pill`}
-    placeholder="Username (letters, numbers, and underscores only)"
-    value={formData.name}
-    onChange={(e) => setFormData({...formData, name: e.target.value})}
-    pattern="[a-zA-Z0-9_]+"
-    required
-  />
-</div>
+              <input
+                type="text"
+                className={`${Styles['form-input']} form-control rounded-pill`}
+                placeholder="Username (letters, numbers, and underscores only)"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                pattern="[a-zA-Z0-9_]+"
+                required
+              />
+            </div>
 
-<div className="mb-3">
-  <input
-    type="email"
-    className={`${Styles['form-input']} form-control rounded-pill`}
-    placeholder="Email (must end with @stud.noroff.no)"
-    value={formData.email}
-    onChange={(e) => setFormData({...formData, email: e.target.value})}
-    pattern=".*@stud\.noroff\.no$"
-    required
-  />
-</div>
+            <div className="mb-3">
+              <input
+                type="email"
+                className={`${Styles['form-input']} form-control rounded-pill`}
+                placeholder="Email (must end with @stud.noroff.no)"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                pattern=".*@stud\.noroff\.no$"
+                required
+              />
+            </div>
 
-<div className="mb-3">
-  <input
-    type="password"
-    className={`${Styles['form-input']} form-control rounded-pill`}
-    placeholder="Password (at least 8 characters)"
-    value={formData.password}
-    onChange={(e) => setFormData({...formData, password: e.target.value})}
-    minLength="8"
-    required
-  />
-</div>
+          
+            <div className="mb-3 position-relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                className={`${Styles['form-input']} form-control rounded-pill pe-5`}
+                placeholder="Password (at least 8 characters)"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                minLength="8"
+                required
+              />
+              <button
+                type="button"
+                className="btn position-absolute end-0 top-50 translate-middle-y me-3"
+                onClick={togglePasswordVisibility}
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  zIndex: 10,
+                  padding: '0',
+                  width: '20px',
+                  height: '20px'
+                }}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                <i 
+                  className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                  style={{color: '#666', fontSize: '16px'}}
+                ></i>
+              </button>
+            </div>
             
             <div className="mb-3 form-check">
               <input
@@ -162,13 +184,13 @@ const handleRegister = async (e) => {
               </label>
             </div>
             <div className="text-center">
-                 <button
-              type="submit"
-              className={`btn w-25 rounded-pill ${Styles.signInButton} ${isLoading ? 'loading' : ''}`}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Registrerer...' : 'Create'}
-            </button> 
+              <button
+                type="submit"
+                className={`btn w-25 rounded-pill ${Styles.signInButton} ${isLoading ? 'loading' : ''}`}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Registrerer...' : 'Create'}
+              </button> 
             </div>
           </form>
           

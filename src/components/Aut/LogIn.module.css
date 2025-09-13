@@ -23,3 +23,34 @@
   transform: translateY(-1px); 
 }
 
+
+.passwordToggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.passwordToggle:hover {
+  color: #333;
+}
+
+.passwordToggle:focus {
+  outline: none;
+  color: #007bff;
+}
+
+
+.passwordToggle i {
+  font-size: 16px;
+  pointer-events: none;
+}
+
