@@ -1,9 +1,9 @@
-import {useMediaQuery} from 'react-responsive';
-import NavDesktop from './NavDesktop';
-import NavMobile from './NavMobile';
+import { useMediaQuery } from "react-responsive";
+import NavDesktop from "./NavDesktop";
+import NavMobile from "./NavMobile";
 
 function Nav() {
-  const isMobile = useMediaQuery({ maxWidth: 991})
+  const isMobile = useMediaQuery({ maxWidth: 991 });
 
   return isMobile ? <NavMobile /> : <NavDesktop />;
 }

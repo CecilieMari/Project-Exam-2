@@ -7,7 +7,7 @@ const MyBookingPage = () => {
   const [user, setUser] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [newAvatar, setNewAvatar] = useState("");
   const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
   const [showAvatarForm, setShowAvatarForm] = useState(false);
@@ -30,7 +30,7 @@ const MyBookingPage = () => {
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
-      setError('Failed to load user data');
+      setError("Failed to load user data");
     }
   };
 
@@ -47,7 +47,7 @@ const MyBookingPage = () => {
           },
         }
       );
-      
+
       if (response.ok) {
         const data = await response.json();
         console.log("User bookings from API:", data.data);
@@ -55,7 +55,7 @@ const MyBookingPage = () => {
       }
     } catch (error) {
       console.error("Error fetching bookings:", error);
-      setError('Failed to load bookings');
+      setError("Failed to load bookings");
     } finally {
       setLoading(false);
     }
@@ -134,12 +134,12 @@ const MyBookingPage = () => {
 
   const getCurrentBookings = () => {
     const today = new Date();
-    return bookings.filter(booking => new Date(booking.dateTo) >= today);
+    return bookings.filter((booking) => new Date(booking.dateTo) >= today);
   };
 
   const getPastBookings = () => {
     const today = new Date();
-    return bookings.filter(booking => new Date(booking.dateTo) < today);
+    return bookings.filter((booking) => new Date(booking.dateTo) < today);
   };
 
   if (loading) {
@@ -277,7 +277,10 @@ const MyBookingPage = () => {
                                   "https://via.placeholder.com/300x200"
                                 }
                                 className="img-fluid rounded-start"
-                                alt={booking.venue?.media?.[0]?.alt || booking.venue?.name}
+                                alt={
+                                  booking.venue?.media?.[0]?.alt ||
+                                  booking.venue?.name
+                                }
                                 style={{
                                   width: "100%",
                                   objectFit: "cover",
@@ -290,21 +293,31 @@ const MyBookingPage = () => {
                               <div className="card-body">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
                                   <h6 className="card-title mb-0">
-                                    {booking.venue?.name || 'Venue Name'}
+                                    {booking.venue?.name || "Venue Name"}
                                   </h6>
-                                  <span className="badge bg-success">Active</span>
+                                  <span className="badge bg-success">
+                                    Active
+                                  </span>
                                 </div>
                                 <p className="card-text mb-1">
-                                  <strong>Check-in:</strong> {new Date(booking.dateFrom).toLocaleDateString()}
+                                  <strong>Check-in:</strong>{" "}
+                                  {new Date(
+                                    booking.dateFrom
+                                  ).toLocaleDateString()}
                                 </p>
                                 <p className="card-text mb-1">
-                                  <strong>Check-out:</strong> {new Date(booking.dateTo).toLocaleDateString()}
+                                  <strong>Check-out:</strong>{" "}
+                                  {new Date(
+                                    booking.dateTo
+                                  ).toLocaleDateString()}
                                 </p>
                                 <p className="card-text mb-1">
                                   <strong>Guests:</strong> {booking.guests}
                                 </p>
                                 <p className="card-text mb-1">
-                                  <strong>Location:</strong> {booking.venue?.location?.city}, {booking.venue?.location?.country}
+                                  <strong>Location:</strong>{" "}
+                                  {booking.venue?.location?.city},{" "}
+                                  {booking.venue?.location?.country}
                                 </p>
                               </div>
                             </div>
@@ -344,7 +357,10 @@ const MyBookingPage = () => {
                                   "https://via.placeholder.com/300x200"
                                 }
                                 className="img-fluid rounded-start"
-                                alt={booking.venue?.media?.[0]?.alt || booking.venue?.name}
+                                alt={
+                                  booking.venue?.media?.[0]?.alt ||
+                                  booking.venue?.name
+                                }
                                 style={{
                                   width: "100%",
                                   objectFit: "cover",
@@ -357,21 +373,31 @@ const MyBookingPage = () => {
                               <div className="card-body">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
                                   <h6 className="card-title mb-0">
-                                    {booking.venue?.name || 'Venue Name'}
+                                    {booking.venue?.name || "Venue Name"}
                                   </h6>
-                                  <span className="badge bg-secondary">Completed</span>
+                                  <span className="badge bg-secondary">
+                                    Completed
+                                  </span>
                                 </div>
                                 <p className="card-text mb-1">
-                                  <strong>Check-in:</strong> {new Date(booking.dateFrom).toLocaleDateString()}
+                                  <strong>Check-in:</strong>{" "}
+                                  {new Date(
+                                    booking.dateFrom
+                                  ).toLocaleDateString()}
                                 </p>
                                 <p className="card-text mb-1">
-                                  <strong>Check-out:</strong> {new Date(booking.dateTo).toLocaleDateString()}
+                                  <strong>Check-out:</strong>{" "}
+                                  {new Date(
+                                    booking.dateTo
+                                  ).toLocaleDateString()}
                                 </p>
                                 <p className="card-text mb-1">
                                   <strong>Guests:</strong> {booking.guests}
                                 </p>
                                 <p className="card-text mb-1">
-                                  <strong>Location:</strong> {booking.venue?.location?.city}, {booking.venue?.location?.country}
+                                  <strong>Location:</strong>{" "}
+                                  {booking.venue?.location?.city},{" "}
+                                  {booking.venue?.location?.country}
                                 </p>
                               </div>
                             </div>
