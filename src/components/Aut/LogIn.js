@@ -24,7 +24,6 @@ const Login = () => {
       const response = await authAPI.login(formData);
       console.log("Login successful:", response);
 
-      
       const profileRes = await fetch(
         `https://v2.api.noroff.dev/holidaze/profiles/${response.data.name}`,
         {
@@ -41,7 +40,6 @@ const Login = () => {
         throw new Error("Could not fetch user profile. Please try again.");
       }
 
-     
       const userWithVenueManager = {
         ...response.data,
         venueManager: profileData.data.venueManager,
@@ -92,8 +90,6 @@ const Login = () => {
           <h2 className={`${Styles.cardTitle} text-center mb-4 fw-light`}>
             Sign in
           </h2>
-          {/* Fjern denne test linjen: */}
-          {/* <p>cemis@stud.noroff.no', password: '12345678900'</p> */}
 
           {error && (
             <div className="alert alert-danger" role="alert">

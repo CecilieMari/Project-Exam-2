@@ -64,7 +64,7 @@
   text-align: center;
 }
 
-/* GRID LAYOUT - samme som AllVenue */
+
 .venuesGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -72,7 +72,7 @@
   margin-top: 20px;
 }
 
-/* RESPONSIV */
+
 @media (max-width: 768px) {
   .venuesGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -87,7 +87,7 @@
   }
 }
 
-/* VENUE CARD - samme styling som AllVenue */
+
 .venueCard {
   background: transparent;
   border-radius: 12px;
@@ -180,7 +180,7 @@
   line-height: 1.4;
 }
 
-/* VENUE DETAILS */
+
 .venueDetails {
   margin-bottom: 10px;
   flex-shrink: 0;
@@ -219,7 +219,7 @@
   font-size: 0.8rem;
 }
 
-/* AMENITIES - samme som AllVenue */
+
 .amenities {
   display: flex;
   flex-wrap: wrap;
@@ -268,7 +268,6 @@
   color: #666;
 }
 
-/* ACTION BUTTONS - samme som AllVenue */
 .venueActions {
   margin-top: auto;
   display: flex;

@@ -30,8 +30,7 @@ export const useAuth = () => {
     return () => {
       window.removeEventListener("storage", checkLoginStatus);
     };
-  }, [checkLoginStatus]); // Now include checkLoginStatus
-
+  }, [checkLoginStatus]); 
   const logout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");

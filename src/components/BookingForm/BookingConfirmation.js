@@ -32,7 +32,7 @@ const BookingConfirmation = () => {
                     <div className="card mb-4 border-0">
                       <div className="card-body border-0">
                         <div className="row">
-                          {/* VENSTRE KOLONNE - Labels */}
+                          {/* LEFT COLUMN - Labels */}
                           <div className="col-md-6">
                             <p>
                               <strong>Guest Name:</strong>
@@ -59,7 +59,7 @@ const BookingConfirmation = () => {
                             </p>
                           </div>
 
-                          {/* HØYRE KOLONNE - Values */}
+                          {/* RIGHT COLUMN - Values */}
                           <div className="col-md-6">
                             <p>{location.state.user?.name}</p>
                             <p>{location.state.venue?.name}</p>
@@ -99,7 +99,7 @@ const BookingConfirmation = () => {
 
               <div className={`${Style.buttonGroup}`}>
                 <Link
-                  to="/profile"
+                  to="/my-bookings"
                   className={`${Style.btn} btn text-decoration-none`}
                 >
                   View My Bookings

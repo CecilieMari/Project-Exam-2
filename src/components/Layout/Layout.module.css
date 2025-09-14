@@ -20,3 +20,22 @@
   justify-content: flex-end;
 }
 
+
+@media (max-width: 768px) {
+  .logo {
+    width: 60%; 
+    margin-left: 20%; 
+  }
+  
+  .logoContainer {
+    margin-top: 0.5rem; 
+  }
+}
+
+
+@media (max-width: 480px) {
+  .logo {
+    width: 50%; 
+    margin-left: 15%;
+  }
+}

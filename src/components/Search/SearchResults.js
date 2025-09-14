@@ -87,7 +87,6 @@ const SearchResults = ({
 
   return (
     <div className={Styles.searchResults}>
-      {/* Header with reset button */}
       <div className={Styles.resultsHeader}>
         <h2 className={Styles.resultsTitle}>
           {hasSearched && searchCriteria?.location

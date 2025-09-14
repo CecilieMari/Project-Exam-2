@@ -250,7 +250,6 @@ const MyBookingPage = () => {
           </div>
         )}
 
-        {/* Current & Upcoming Bookings Section - SAMME LAYOUT SOM MyVenuePage */}
         <div className="row mb-5">
           <div className="col-12">
             <div className="card bg-transparent border-0">
@@ -332,7 +331,6 @@ const MyBookingPage = () => {
           </div>
         </div>
 
-        {/* Past Bookings Section - SAMME LAYOUT SOM MyVenuePage */}
         <div className="row mb-5">
           <div className="col-12">
             <div className="card bg-transparent border-0">

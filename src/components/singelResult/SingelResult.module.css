@@ -118,12 +118,12 @@
 
 .calendar {
     width: 100%;
-    max-width: 315px; /* Maksimal bredde på kalender */
+    max-width: 315px; 
     border: none;
     font-family: inherit;
     background: transparent !important;
     font-size: 15px;
-    margin: 0 auto; /* Sentrer kalenderen */
+    margin: 0 auto; 
 }
 
 
@@ -179,9 +179,9 @@
     border-radius: 50% !important;
 }
 
-/* Dagens dato - hover tilstand (dette var problemet!) */
+
 .calendar .react-calendar__tile--now:enabled:hover {
-    background-color: #e02d00 !important; /* Mørkere orange på hover */
+    background-color: #e02d00 !important; 
     color: white !important;
     border-radius: 50% !important;
 }
@@ -220,7 +220,7 @@
     border-radius: 50% !important;
 }
 
-/* Styling for date range selection */
+
 .calendar .react-calendar__tile--rangeStart {
     background-color: #4caf50 !important;
     color: white !important;
@@ -295,7 +295,7 @@
     height: auto;
 }
 
-/* Mobile responsiv */
+
 @media (max-width: 1200px) {
     .calendar .react-calendar__tile {
         padding: 5px 1px;
@@ -322,7 +322,7 @@
     
     .calendar {
         font-size: 11px;
-        max-width: 100%; /* Full bredde på mobil */
+        max-width: 100%; 
     }
     
     .calendar .react-calendar__tile {

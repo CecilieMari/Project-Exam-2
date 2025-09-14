@@ -15,14 +15,8 @@ function Footer() {
       </div>
       <div className={Styles.footerContent}>
         <div className={Styles.footerLinks}>
-          <Link className={Styles.footerLink} to="/">
-            About us
-          </Link>
           <Link className={Styles.footerLink} to="/all-venues">
             All Venues
-          </Link>
-          <Link className={Styles.footerLink} to="/">
-            Customer service
           </Link>
           <Link className={Styles.footerLink} to="/login">
             Log in
