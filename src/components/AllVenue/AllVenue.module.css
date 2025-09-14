@@ -22,7 +22,7 @@
     margin-bottom: 0;
 }
 
-/* GRID LAYOUT - 3 kolonner */
+
 .venuesGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -30,7 +30,7 @@
     margin-top: 20px;
 }
 
-/* RESPONSIV - 2 kolonner på tablets */
+
 @media (max-width: 768px) {
     .venuesGrid {
         grid-template-columns: repeat(2, 1fr);
@@ -38,7 +38,7 @@
     }
 }
 
-/* RESPONSIV - 1 kolonne på mobile */
+
 @media (max-width: 480px) {
     .venuesGrid {
         grid-template-columns: 1fr;
@@ -62,7 +62,7 @@
     transform: translateY(-5px);
 }
 
-/* RANKING BADGE */
+
 .rankingBadge {
     position: absolute;
     top: 15px;

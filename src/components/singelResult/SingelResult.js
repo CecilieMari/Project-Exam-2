@@ -12,18 +12,15 @@ function SingleResult() {
   const [error, setError] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
- 
   const [selectedDates, setSelectedDates] = useState([null, null]);
   const [bookedDates, setBookedDates] = useState([]);
 
-  
   const [guests, setGuests] = useState(1);
   const [isBooking, setIsBooking] = useState(false);
   const [bookingError, setBookingError] = useState("");
 
   console.log("Venue ID:", id);
 
-  
   useEffect(() => {
     const fetchVenue = async () => {
       try {
@@ -52,7 +49,6 @@ function SingleResult() {
     }
   }, [id]);
 
-  
   useEffect(() => {
     if (venue?.bookings) {
       const occupied = [];
@@ -73,7 +69,6 @@ function SingleResult() {
     }
   }, [venue]);
 
-  
   const isDateBooked = (date) => {
     return bookedDates.some(
       (bookedDate) => bookedDate.toDateString() === date.toDateString()
@@ -105,7 +100,6 @@ function SingleResult() {
     return null;
   };
 
- 
   const handleDirectBooking = async () => {
     if (!selectedDates[0] || !selectedDates[1]) {
       setBookingError("Please select check-in and check-out dates");
@@ -142,7 +136,7 @@ function SingleResult() {
 
       if (response.ok) {
         const booking = await response.json();
-        
+
         navigate(`/booking-confirmation/${booking.data.id}`, {
           state: {
             booking: booking.data,
@@ -171,7 +165,6 @@ function SingleResult() {
     return 0;
   };
 
- 
   const calculateNights = () => {
     if (selectedDates[0] && selectedDates[1]) {
       return Math.ceil(
@@ -254,7 +247,7 @@ function SingleResult() {
 
       {/* Image and Calendar Row */}
       <div className="row mb-4">
-        {/* Image Gallery - gjort bredere */}
+        {/* Image Gallery */}
         <div className="col-lg-8 col-md-12 mb-3">
           <div className={Style.imageSection}>
             {venue.media && venue.media.length > 0 ? (
@@ -307,7 +300,6 @@ function SingleResult() {
         <div className="col-lg-4 col-md-12">
           <div className={`${Style.calendarSection} card h-100`}>
             <div className={`card-body ${Style.customBackground}`}>
-              {/* Pris flyttes hit - over kalenderen */}
               <div
                 className={`d-flex justify-content-between align-items-center mb-3 p-3  rounded`}
               >
@@ -386,8 +378,6 @@ function SingleResult() {
           {/* Venue Info */}
           <div className={`${Style.card} mb-4`}>
             <div className={`${Style.cardBody}`}>
-              {/* Fjernet prisseksjonen herfra siden den nå er over kalenderen */}
-
               {/* Location */}
               {venue.location &&
                 (venue.location.city || venue.location.country) && (
@@ -407,7 +397,7 @@ function SingleResult() {
                 </div>
               )}
 
-              {/* Amenities - Kun vis tilgjengelige tjenester */}
+              {/* Amenities*/}
               {venue.meta &&
                 Object.values(venue.meta).some((value) => value === true) && (
                   <div className="mb-4">
@@ -437,7 +427,6 @@ function SingleResult() {
                   </div>
                 )}
 
-              {/* Hvis ingen tjenester er tilgjengelige */}
               {venue.meta &&
                 !Object.values(venue.meta).some((value) => value === true) && (
                   <div className="mb-4">
@@ -524,7 +513,6 @@ function SingleResult() {
                 </div>
               )}
 
-              {/* Instruksjon for å velge datoer */}
               {(!selectedDates[0] || !selectedDates[1]) && (
                 <div className="alert alert-info small mb-3">
                   <i className="fas fa-info-circle me-2"></i>

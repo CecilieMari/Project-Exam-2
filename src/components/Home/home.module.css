@@ -18,7 +18,7 @@
 
 .venueDescription {
   display: -webkit-box;
-  -webkit-line-clamp: 5; /* antall linjer */
+  -webkit-line-clamp: 5; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -82,7 +82,7 @@
     max-width: 100%;
 }
 
-/* Legg til disse nye CSS klassene */
+
 .imageContainer {
     width: 100%;
     margin-bottom: 15px;
@@ -138,7 +138,7 @@
     margin-bottom: 15px;
 }
 
-/* DETTE ER VIKTIG - Pris og amenities på samme linje */
+
 .priceAndAmenities {
     display: flex;
     justify-content: space-between;
@@ -239,7 +239,6 @@
     margin-bottom: 10%;
 }
 
-/* Stor mobil/tablet */
 @media (max-width: 768px) {
     .title {
         font-size: 30px;
@@ -291,7 +290,7 @@
         padding: 0 20px;
     }
 
-    /* Mobil layout for pris og amenities */
+    
     .priceAndAmenities {
         flex-direction: column;
         align-items: flex-start;
@@ -299,7 +298,7 @@
     }
 }
 
-/* Mobil */
+
 @media (max-width: 480px) {
     .featuredCard {
         flex: 0 0 250px; 
@@ -339,7 +338,7 @@
     }
 }
 
-/* Ekstra små skjermer */
+
 @media (max-width: 320px) {
     .title {
         font-size: 24px;
