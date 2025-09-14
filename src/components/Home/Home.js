@@ -173,7 +173,9 @@ function Home() {
         <div className={Styles.fakeAdvertisement}>
           <img src={fakeAd} alt="Advertisement" className={Styles.adImage} />
           <div className={Styles.adText}>Your Escape Starts Here </div>
-          <button className={Styles.adButton}>Book Now</button>
+          <Link to="/all-venues" className={Styles.adButton}>
+            Book Now
+          </Link>
         </div>
       </div>
 
