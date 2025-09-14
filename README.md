@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Holidaze – Accommodation Booking Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src=".././Project-Exam-2/src/img/holidaze.png">
 
-## Available Scripts
+Holidaze is a modern accommodation booking frontend built with React.  
+Users can search for venues, view details, check availability, and book directly.  
+Venue managers can register, manage their venues, and view bookings.  
 
-In the project directory, you can run:
+## Installation & Setup
 
-### `npm start`
+Repository: git clone https://github.com/CecilieMari/Project-Exam-2.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Navigate into the project folder: cd Project-Exam-2
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Install dependencies: npm install
 
-### `npm test`
+Start the development server: npm start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The app will run at: http://localhost:3000
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+User authentication (login, register, logout)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Customer profile (avatar upload, view bookings)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Venue manager profile (create, update, delete venues)
 
-### `npm run eject`
+Venue listing & search
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Venue details with calendar and booking functionality
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Responsive design (mobile & desktop)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Links
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Netlify: https://project-exam-holidaze.netlify.app/
 
-## Learn More
+GitHub Repository: https://github.com/CecilieMari/Project-Exam-2.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+GitHub Project Board: https://github.com/users/CecilieMari/projects/6
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Adobe XD Prototype: https://xd.adobe.com/view/910dd752-aa4e-4db5-bd88-6dde208c36ce-c45e/
 
-### Code Splitting
+## How to Test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Register as a customer (email must end with @stud.noroff.no)
 
-### Analyzing the Bundle Size
+Create and manage venues as a venue manager
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Book a venue and check it in the customer profile
 
-### Making a Progressive Web App
+Update and delete venues as a venue manager
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Credits
 
-### Advanced Configuration
+Developed by Cecilie Mari Monsen as part of the Noroff Final Project Exam.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
