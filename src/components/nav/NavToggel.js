@@ -10,12 +10,12 @@ function NavToggle({ open, onClick }) {
       onClick={onClick}
     >
       {open ? (
-        // Kryss-ikon (X)
+        //(X)
         <span style={{ fontSize: "2rem", lineHeight: 1, color: "#FE3301" }}>
           &#10005;
         </span>
       ) : (
-        // Hamburger-ikon (≡)
+        //(≡)
         <span style={{ fontSize: "2rem", lineHeight: 1, color: "#FE3301" }}>
           &#9776;
         </span>

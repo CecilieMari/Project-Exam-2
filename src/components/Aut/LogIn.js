@@ -24,7 +24,7 @@ const Login = () => {
       const response = await authAPI.login(formData);
       console.log("Login successful:", response);
 
-      // Hent profil for å få venueManager
+      
       const profileRes = await fetch(
         `https://v2.api.noroff.dev/holidaze/profiles/${response.data.name}`,
         {
@@ -41,7 +41,7 @@ const Login = () => {
         throw new Error("Could not fetch user profile. Please try again.");
       }
 
-      // Lagre bruker med venueManager i localStorage
+     
       const userWithVenueManager = {
         ...response.data,
         venueManager: profileData.data.venueManager,
