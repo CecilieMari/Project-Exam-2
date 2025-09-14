@@ -55,6 +55,14 @@ npm start
 4. **Register as a venue manager** to create and manage venues
 5. **View customer bookings** as a venue manager
 
+## Tech Stack
+
+- **Frontend**: React 18, React Router
+- **Styling**: Bootstrap 5, CSS Modules
+- **API**: Noroff Holidaze API
+- **Deployment**: Netlify
+- **Icons**: Font Awesome
+
 ## Credits
 
 Developed by **Cecilie Mari Monsen** as part of the Noroff Final Project Exam.
