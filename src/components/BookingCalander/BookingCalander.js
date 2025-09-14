@@ -9,7 +9,7 @@ function BookingCalendar({ venue, onDateSelect }) {
 
   useEffect(() => {
     if (venue?.bookings) {
-      // Konverter bookings til array av opptatte datoer
+     
       const occupied = [];
       venue.bookings.forEach((booking) => {
         const start = new Date(booking.dateFrom);
@@ -35,7 +35,7 @@ function BookingCalendar({ venue, onDateSelect }) {
   };
 
   const isDateDisabled = (date) => {
-    // Deaktiver tidligere datoer og opptatte datoer
+    
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return date < today || isDateBooked(date);

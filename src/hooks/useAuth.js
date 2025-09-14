@@ -20,7 +20,7 @@ export const useAuth = () => {
       setIsLoggedIn(false);
       setUser(null);
     }
-  }, []); // Empty dependency array since it doesn't depend on anything
+  }, []); 
 
   useEffect(() => {
     checkLoginStatus();

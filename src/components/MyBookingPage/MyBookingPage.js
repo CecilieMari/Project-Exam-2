@@ -163,7 +163,7 @@ const MyBookingPage = () => {
   return (
     <div className={`${Styles.dashboard} container-fluid py-4`}>
       <div className="container">
-        {/* User Profile Section - SAMME SOM MyVenuePage */}
+        {/* User Profile Section*/}
         <div className="row mb-5">
           <div className="col-12">
             <div className="card h-100 border-0 bg-transparent">

@@ -23,7 +23,7 @@ const MyVenuePage = () => {
   const [editingVenue, setEditingVenue] = useState(null);
   const [searchLocation] = useState("");
 
-  // NYE STATES FOR BOOKINGS
+  
   const [venueBookings, setVenueBookings] = useState({});
   const [loadingBookings, setLoadingBookings] = useState({});
   const [showBookings, setShowBookings] = useState({});

@@ -12,18 +12,18 @@ function SingleResult() {
   const [error, setError] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Kalender state
+ 
   const [selectedDates, setSelectedDates] = useState([null, null]);
   const [bookedDates, setBookedDates] = useState([]);
 
-  // Legg til guests state
+  
   const [guests, setGuests] = useState(1);
   const [isBooking, setIsBooking] = useState(false);
   const [bookingError, setBookingError] = useState("");
 
   console.log("Venue ID:", id);
 
-  // Fetch venue data basert på ID
+  
   useEffect(() => {
     const fetchVenue = async () => {
       try {
@@ -52,7 +52,7 @@ function SingleResult() {
     }
   }, [id]);
 
-  // Prosesser bookings til opptatte datoer
+  
   useEffect(() => {
     if (venue?.bookings) {
       const occupied = [];
@@ -73,7 +73,7 @@ function SingleResult() {
     }
   }, [venue]);
 
-  // Kalender funksjoner
+  
   const isDateBooked = (date) => {
     return bookedDates.some(
       (bookedDate) => bookedDate.toDateString() === date.toDateString()
@@ -105,7 +105,7 @@ function SingleResult() {
     return null;
   };
 
-  // Direkte booking funksjon
+ 
   const handleDirectBooking = async () => {
     if (!selectedDates[0] || !selectedDates[1]) {
       setBookingError("Please select check-in and check-out dates");
@@ -142,7 +142,7 @@ function SingleResult() {
 
       if (response.ok) {
         const booking = await response.json();
-        // Naviger direkte til bekreftelses side
+        
         navigate(`/booking-confirmation/${booking.data.id}`, {
           state: {
             booking: booking.data,
@@ -171,7 +171,7 @@ function SingleResult() {
     return 0;
   };
 
-  // Legg til denne funksjonen sammen med de andre funksjonene:
+ 
   const calculateNights = () => {
     if (selectedDates[0] && selectedDates[1]) {
       return Math.ceil(
