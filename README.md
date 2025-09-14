@@ -1,7 +1,6 @@
 # Holidaze – Accommodation Booking Application
 
-<img src=".././Project-Exam-2/src/img/holidaze.png">
-![Uploading image.png…]()
+<img src="src/img/holidaze.png" alt="Holidaze web" width="300">
 
 
 Holidaze is a modern accommodation booking frontend built with React.  
